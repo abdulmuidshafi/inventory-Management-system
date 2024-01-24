@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from "react";
 import { Form, Button } from "react-bootstrap";
 import AxiosInstance from "../api/AxiosInstance";
@@ -13,7 +12,7 @@ const AddSale = () => {
     customer_name: "",
     customer_TIN: "",
   });
-  const [sellerInfo, setSellerInfo] = useState(null);
+  //const [sellerInfo, setSellerInfo] = useState(null);
   const navigate = useNavigate();
 const user = JSON.parse( localStorage.getItem("token"))
   useEffect(() => {
@@ -64,11 +63,11 @@ const user = JSON.parse( localStorage.getItem("token"))
       items: updatedItems,
     });
   };
-
+console.log(products);
   const handleAddItem = () => {
     setFormData({
       ...formData,
-      items: [...formData.items, { product: "", quantity: 0 }],
+      items: [...formData.items, { product: "", quantity: ""}],
     });
   };
 
@@ -83,6 +82,7 @@ const user = JSON.parse( localStorage.getItem("token"))
 
   const handleSubmit = (event) => {
     event.preventDefault();
+
 console.log(formData,user);
 // return
     AxiosInstance.post("/sales", {...formData,seller:user._id})
@@ -91,7 +91,7 @@ console.log(formData,user);
         console.log("Sale added successfully:", data);
         setFormData({          
           items: [],
-          customer_name: "",
+          customer_name: "", 
           customer_TIN: "",
         });
         navigate("/sales");
@@ -120,17 +120,8 @@ console.log(formData,user);
 
   return (
     <div className="p-3">
-      <h1>Seller Information</h1>
-      {sellerInfo ? (
-        <div>
-          <p>Name: {sellerInfo.name}</p>
-          <p>Email: {sellerInfo.email}</p>
-          <p>Address: {sellerInfo.address}</p>
-        </div>
-      ) : (
-        <p>Loading seller information...</p>
-      )}
 
+<h2 className="text-center mb-4">Create New Sale</h2>
       <Form onSubmit={handleSubmit}>
        
 
@@ -146,7 +137,7 @@ console.log(formData,user);
                 required
               >
                 <option value="">Select a product</option>
-                {products.map((product) => (
+                {products.filter(prod=>prod.stock>0).map((product) => (
                   <option key={product._id} value={product._id}>
                     {product.name}
                   </option>

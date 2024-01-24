@@ -3,7 +3,9 @@ import Table from 'react-bootstrap/Table';
 import Button from 'react-bootstrap/Button';
 import AxiosInstance from '../api/AxiosInstance';
 import { useNavigate } from 'react-router-dom';
-
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faCheckCircle, faTimesCircle, faEdit, faLock, faUnlock } from '@fortawesome/free-solid-svg-icons';
+import ButtonGroup from 'react-bootstrap/ButtonGroup';
 const ListUsers = ({ onActivate, onDeactivate }) => {
   const [users, setUsers] = useState([]);
   const navigate = useNavigate();
@@ -44,60 +46,46 @@ const ListUsers = ({ onActivate, onDeactivate }) => {
     <div>
       <h2>Users List</h2>
       <Button onClick={() => navigate("/user/add")}>Add User</Button>
-      <Table striped bordered>
-        <thead>
-          <tr>
-            <th>Name</th>
-            <th>Email</th>
-          {<th>Password</th>}  
-            <th>Role</th>
-            <th>Phone</th>
-            <th>Status</th>
-            <th>Actions</th>
-          </tr>
-        </thead>
-        <tbody>
-          {users.map((user) => (
-            <tr key={user._id}>
-              <td>{user.name}</td>
-              <td>{user.email}</td>
-              <td>{user.password}</td>
-              <td>{user.role}</td>
-              <td>{user.phone}</td>
-              <td>
-                {user.active ? (
-                  <span>Active</span>
-                ) : (
-                  <span>Inactive</span>
-                )}
-              </td>
-              <td>
-                <Button
-                  variant="primary"
-                  onClick={() => navigate(`/user/edit/${user._id}`)}
-                >
-                  Edit
-                </Button>{" "}
-                {user.active ? (
-                  <Button
-                    variant="danger"
-                    onClick={() => handleDeactivate(user._id)}
-                  >
-                    Deactivate
-                  </Button>
-                ) : (
-                  <Button
-                    variant="success"
-                    onClick={() => handleActivate(user._id)}
-                  >
-                    Activate
-                  </Button>
-                )}
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </Table>
+      <Table striped bordered hover responsive>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Email</th>
+      <th>Phone</th>
+      <th>Role</th>
+      <th>Status</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    {users.map((user) => (
+      <tr key={user._id} style={{ backgroundColor: user.active ? '#f5f5f5' : '#f0f0f0' }}>
+        <td>{user.name.length > 20 ? `${user.name.substring(0, 20)}...` : user.name}</td>
+        <td>{user.email}</td>
+        <td>{user.phone}</td>
+        <td>{user.role}</td>
+        <td>{user.active ? <FontAwesomeIcon icon={faCheckCircle} style={{ color: 'green' }} /> : <FontAwesomeIcon icon={faTimesCircle} style={{ color: 'red' }} />}</td>
+        <td>
+          <ButtonGroup>
+            <Button variant="primary" onClick={() => navigate(`/user/edit/${user._id}`)}>
+              <FontAwesomeIcon icon={faEdit} /> Edit
+            </Button>
+            {user.active ? (
+              <Button variant="danger" onClick={() => handleDeactivate(user._id)}>
+                <FontAwesomeIcon icon={faLock} /> Lock
+              </Button>
+            ) : (
+              <Button variant="success" onClick={() => handleActivate(user._id)}>
+                <FontAwesomeIcon icon={faUnlock} /> Unlock
+              </Button>
+            )}
+          </ButtonGroup>
+        </td>
+      </tr>
+    ))}
+  </tbody>
+</Table>
+
     </div>
   );
 };
