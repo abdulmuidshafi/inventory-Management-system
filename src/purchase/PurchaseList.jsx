@@ -91,7 +91,7 @@ const PurchaseList = () => {
     {filteredPurchasesOnPage.map((purchase, index) => (
       <tr key={purchase._id} className={`${index % 2 === 0 ? 'bg-light' : ''}`}>
         <td>{index + 1}</td>
-        <td>{purchase.product.name}</td>
+        <td>{purchase?.product?.name}</td>
         <td>
           {/*<FontAwesomeIcon icon={faUser} />*/}
           {purchase.supplier.name}
