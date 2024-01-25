@@ -91,11 +91,14 @@ import pic from "../assets/photo_2022-02-10_07-16-12.jpg"
       </NavDropdown.Item>
      
   </NavDropdown.Item>
+  <LinkContainer to="/profile/changepassword">
   <NavDropdown.Item>
     <Button variant="outline-light">
       <i className="bi bi-key"></i> Change Password
     </Button>
   </NavDropdown.Item>
+  </LinkContainer>
+
   <NavDropdown.Divider />
   <Button variant="danger" onClick={handleLogout}>
     Logout

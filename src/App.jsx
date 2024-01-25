@@ -28,6 +28,8 @@ import User from "./page/User";
 import ListUsers from "./users/ListUesrs";
 import CreateUser from "./users/CreateUser";
 import UpdateUser from "./users/UpdateUser";
+import SettingsPage from "./page/SettingsPage";
+import ChangePasswordForm from "./changepassword/ChangePasswordForm";
 //import User from "./user/User";
 //import UserList from "./user/UserList";
 function App() {
@@ -75,6 +77,10 @@ function App() {
             <Route path="edit/:userId" element={<UpdateUser />} />
           </Route> 
 
+          <Route path="profile" element={<SettingsPage />}>
+            {/*<Route index element={<PurchaseList />} />*/}
+            <Route path="changepassword" element={<ChangePasswordForm />} /> 
+          </Route>
 
           <Route path="purchase" element={<Purchase />}>
             <Route index element={<PurchaseList />} />
