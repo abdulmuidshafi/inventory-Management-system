@@ -1,6 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import Table from 'react-bootstrap/Table';
-import Button from 'react-bootstrap/Button';
+import {
+  Form,
+  Button,
+  Row,
+  Col,
+  Card,
+  CardBody,
+  CardHeader,
+} from "react-bootstrap";
 import AxiosInstance from '../api/AxiosInstance';
 import { useNavigate } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -43,8 +51,11 @@ const ListUsers = ({ onActivate, onDeactivate }) => {
   };
 
   return (
-    <div>
-      <h2>Users List</h2>
+   <Card className="shadow-sm p-3 mb-4">
+<CardHeader className="bg-light text-dark">
+  <h4>Users List</h4>
+</CardHeader>
+<CardBody>
       <Button onClick={() => navigate("/user/add")}>Add User</Button>
       <Table striped bordered hover responsive>
   <thead>
@@ -85,8 +96,8 @@ const ListUsers = ({ onActivate, onDeactivate }) => {
     ))}
   </tbody>
 </Table>
-
-    </div>
+</CardBody>
+    </Card>
   );
 };
 

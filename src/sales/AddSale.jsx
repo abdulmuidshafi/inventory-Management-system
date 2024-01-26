@@ -1,5 +1,13 @@
 import React, { useState, useEffect } from "react";
-import { Form, Button } from "react-bootstrap";
+import {
+  Form,
+  Button,
+  Card,
+  CardBody,
+  CardHeader,
+  Row,
+  Col,
+} from "react-bootstrap";
 import AxiosInstance from "../api/AxiosInstance";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
@@ -119,9 +127,11 @@ console.log(formData,user);
   };
 
   return (
-    <div className="p-3">
-
-<h2 className="text-center mb-4">Create New Sale</h2>
+    <Card className="shadow-sm p-3 mb-4">
+      <CardHeader className="bg-light text-dark">
+        <h4>Create New Sale</h4>
+      </CardHeader>
+      <CardBody>
       <Form onSubmit={handleSubmit}>
        
 
@@ -195,7 +205,9 @@ console.log(formData,user);
           Submit Sale
         </Button>
       </Form>
-    </div>
+      </CardBody>
+    </Card>
+
   );
 };
 

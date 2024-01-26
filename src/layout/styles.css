@@ -1,0 +1,85 @@
+/* Reset basic styles 
+body {
+    margin: 0;
+    padding: 0;
+    font-family: Inter, sans-serif;
+    color: #333333;
+  }
+  
+  .navbar-custom {
+    background-color: #f5f5f5;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+  }
+  
+  .container-custom {
+    padding: 0.75rem 1rem;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  
+  .navbar-brand-custom {
+    display: flex;
+    align-items: center;
+  }
+  
+  .navbar-brand-custom img {
+    border-radius: 50%;
+  }
+  
+  .navbar-nav-custom {
+    display: flex;
+    align-items: center;
+    list-style: none;
+    margin: 0;
+  }
+  
+  .nav-link-custom {
+    padding: 0.5rem 1rem;
+    color: #666;
+    transition: color 0.2s ease-in-out;
+  }
+  
+  .nav-link-custom:hover {
+    color: #333;
+  }
+  
+  .nav-link-custom.text-primary {
+    color: #007bff;
+  }
+  
+  .dropdown-custom {
+    color: #666;
+  }
+  
+  .dropdown-custom::before {
+    content: "";
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    margin-right: 5px;
+    border-radius: 50%;
+    background-color: #cccccc;
+    vertical-align: middle;
+  }
+  
+  .dropdown-custom:hover {
+    color: #333;
+  }
+  
+  .dropdown-custom:hover::before {
+    background-color: #999;
+  }
+  
+  .btn-danger {
+    background-color: #dc3545;
+    border-color: #dc3545;
+  }
+  
+  .content-wrapper {
+    padding: 2rem;
+    min-height: calc(100vh - 64px);
+  }
+  
+  /* ... Add additional styles for specific elements and components ...
+   */
+  

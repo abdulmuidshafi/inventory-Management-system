@@ -1,6 +1,13 @@
 import React, { useState, useEffect } from "react";
-import { Form, Button } from "react-bootstrap";
-import axios from "axios";
+import {
+  Form,
+  Button,
+  Row,
+  Col,
+  Card,
+  CardBody,
+  CardHeader,
+} from "react-bootstrap";
 import { useNavigate, useParams } from "react-router-dom";
 import AxiosInstance from "../api/AxiosInstance";
 import { toast } from "react-toastify";
@@ -51,9 +58,14 @@ const EditSupplier = () => {
   };
 
   return (
-    <div className="p-3">
-      <h2>Edit supplier</h2>
+    <Card className="shadow-sm p-3 mb-4">
+      <CardHeader className="bg-light text-dark">
+        <h4>Add New Supplier</h4>
+      </CardHeader>
+      <CardBody>
       <Form onSubmit={handleSubmit}>
+      <Row>
+            <Col>
         <Form.Group controlId="formName">
           <Form.Label>Name</Form.Label>
           <Form.Control
@@ -64,7 +76,8 @@ const EditSupplier = () => {
             required
           />
         </Form.Group>
-
+        </Col>
+        <Col>
         <Form.Group controlId="formDescription">
           <Form.Label>Description</Form.Label>
           <Form.Control
@@ -74,11 +87,15 @@ const EditSupplier = () => {
             onChange={(e) => setDescription(e.target.value)}
           />
         </Form.Group>
+        </Col>
+        </Row>
+            
         <Button variant="primary" className="mt-3" type="submit">
           Update supplier
         </Button>
       </Form>
-    </div>
+      </CardBody>
+    </Card>
   );
 };
 

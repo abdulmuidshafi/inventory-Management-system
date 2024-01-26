@@ -75,7 +75,7 @@ import pic from "../assets/photo_2022-02-10_07-16-12.jpg"
        )}
        
       </Nav>
-      <NavDropdown title="user" className="bi bi-person-circle">
+      <NavDropdown title="profile" className="bi bi-person-circle">
   <NavDropdown.Item>
     <Button variant="outline-light">
       <i className="bi bi-person"></i> Profile
@@ -115,4 +115,4 @@ import pic from "../assets/photo_2022-02-10_07-16-12.jpg"
   </>
  );
 };
-export default Layout;
+export default Layout; 

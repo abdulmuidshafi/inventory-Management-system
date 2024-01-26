@@ -1,5 +1,13 @@
 import React, { useState } from "react";
-import { Form, Button } from "react-bootstrap"; 
+import {
+  Form,
+  Button,
+  Row,
+  Col,
+  Card,
+  CardBody,
+  CardHeader,
+} from "react-bootstrap";
 import AxiosInstance from "../api/AxiosInstance";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
@@ -30,9 +38,14 @@ const AddSupplier = () => {
   };
 
   return (
-    <div className="p-3">
-      <h2>Add Product</h2>
+    <Card className="shadow-sm p-3 mb-4">
+      <CardHeader className="bg-light text-dark">
+        <h4>Add New Supplier</h4>
+      </CardHeader>
+      <CardBody>
       <Form onSubmit={handleSubmit}>
+      <Row>
+            <Col>
         <Form.Group controlId="formName">
           <Form.Label>Name</Form.Label>
           <Form.Control
@@ -43,7 +56,8 @@ const AddSupplier = () => {
             required
           />
         </Form.Group>
-
+        </Col>
+        <Col>
         <Form.Group controlId="formDescription">
           <Form.Label>Description</Form.Label>
           <Form.Control
@@ -53,12 +67,15 @@ const AddSupplier = () => {
             onChange={(e) => setDescription(e.target.value)}
           />
         </Form.Group>
-
+        </Col>
+        
+        </Row>
         <Button variant="primary" className="mt-3" type="submit">
           Add Supplier
         </Button>
       </Form>
-    </div>
+      </CardBody>
+    </Card>
   );
 };
 export default AddSupplier;

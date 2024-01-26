@@ -1,5 +1,13 @@
 import React, { useState, useEffect } from "react";
-import { Form, Button } from "react-bootstrap";
+import {
+  Form,
+  Button,
+  Row,
+  Col,
+  Card,
+  CardBody,
+  CardHeader,
+} from "react-bootstrap";
 import AxiosInstance from "../api/AxiosInstance";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
@@ -79,8 +87,14 @@ const AddPurchase = () => {
   };
 
   return (
-    <div className="p-3">
+    <Card className="shadow-sm p-3 mb-4">
+    <CardHeader className="bg-light text-dark">
+    <h4>Add Purchase</h4>
+  </CardHeader>
+  <CardBody>
       <Form onSubmit={handleSubmit}>
+      <Row>
+            <Col>
         <Form.Group controlId="product">
           <Form.Label>Product</Form.Label>
           <Form.Control
@@ -98,7 +112,8 @@ const AddPurchase = () => {
             ))}
           </Form.Control>
         </Form.Group>
-
+        </Col>
+        <Col>
         <Form.Group controlId="supplier">
           <Form.Label>Supplier</Form.Label>
           <Form.Control
@@ -116,7 +131,11 @@ const AddPurchase = () => {
             ))}
           </Form.Control>
         </Form.Group>
-
+        </Col>
+        </Row>
+        <Row>
+            
+            <Col>
         <Form.Group controlId="unitPrice">
           <Form.Label>Unit Price</Form.Label>
           <Form.Control
@@ -127,7 +146,8 @@ const AddPurchase = () => {
             required
           />
         </Form.Group>
-
+        </Col>
+        <Col>
         <Form.Group controlId="quantity">
           <Form.Label>Quantity</Form.Label>
           <Form.Control
@@ -137,12 +157,14 @@ const AddPurchase = () => {
             onChange={handleInputChange}
           />
         </Form.Group>
-
+        </Col>
+        </Row>
         <Button variant="primary" type="submit">
           Add Purchase
         </Button>
       </Form>
-    </div>
+      </CardBody>
+    </Card>
   );
 };
 
