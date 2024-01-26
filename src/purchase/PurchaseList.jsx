@@ -94,7 +94,7 @@ const PurchaseList = () => {
         <td>{purchase?.product?.name}</td>
         <td>
           {/*<FontAwesomeIcon icon={faUser} />*/}
-          {purchase.supplier.name}
+          {purchase?.supplier?.name}
         </td>
         <td>
           <FontAwesomeIcon icon={faMoneyBill} />
