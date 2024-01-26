@@ -30,7 +30,7 @@ const ChangePasswordForm = () => {
 
       // Handle success
       toast.success("Password changed successfully!");
-      navigate('/profile'); // Redirect to profile after success
+      navigate('/login'); // Redirect to profile after success
     } catch (error) {
       // Handle specific errors gracefully
       if (error.response.status === 401) {
@@ -65,7 +65,7 @@ const ChangePasswordForm = () => {
           value={newPassword}
           onChange={(e) => setNewPassword(e.target.value)}
           required
-          minLength={8} // Enforce password strength
+          minLength={5} // Enforce password strength
           className={error ? 'error-input' : ''}
         />
       </div>
