@@ -30,6 +30,7 @@ import CreateUser from "./users/CreateUser";
 import UpdateUser from "./users/UpdateUser";
 import SettingsPage from "./page/SettingsPage";
 import ChangePasswordForm from "./profiles/ChangePasswordForm";
+import EditProfileForm from "./profiles/EditProfileForm";
 //import User from "./user/User";
 //import UserList from "./user/UserList";
 function App() {
@@ -80,7 +81,7 @@ function App() {
           <Route path="profile" element={<SettingsPage />}>
             {/*<Route index element={<PurchaseList />} />*/}
             <Route path="changepassword" element={<ChangePasswordForm />} /> 
-            
+            <Route path="edit" element={<EditProfileForm />} />
           </Route>
 
           <Route path="purchase" element={<Purchase />}>
