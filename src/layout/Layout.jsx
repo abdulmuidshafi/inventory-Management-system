@@ -1,109 +1,130 @@
-import React from "react";
+import React, { useState } from 'react';
+import { Outlet, Link } from 'react-router-dom';
+
+import { useNavigate } from 'react-router-dom';
 import {
+  AppBar,
+  Toolbar,
+  IconButton,
+  Typography,
   Button,
-  Container,
-  Nav,
-  Navbar,
-  NavDropdown,} from "react-bootstrap";
-import { LinkContainer } from "react-router-bootstrap";
-import { Outlet } from "react-router-dom";
-import { useNavigate } from "react-router-dom";
-import "bootstrap-icons/font/bootstrap-icons.css";
-import pic from "../assets/photo_2022-02-10_07-16-12.jpg";
+  Menu,
+  MenuItem,
+  Avatar,
+  ListItemIcon,
+  ListItemText
+} from '@mui/material';
+import HomeIcon from '@mui/icons-material/Home';
+import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+import EditIcon from '@mui/icons-material/Edit';
+import KeyIcon from '@mui/icons-material/VpnKey';
+import LogoutIcon from '@mui/icons-material/Logout';
+import pic from '../assets/photo_2022-02-10_07-16-12.jpg';
 
 const Layout = () => {
-  const user = JSON.parse(localStorage.getItem("token"));
   const navigate = useNavigate();
+  const user = JSON.parse(localStorage.getItem('token'));
+  
+  // Define anchorEl and open state for the user profile menu
+  const [anchorEl, setAnchorEl] = useState(null);
+  const open = Boolean(anchorEl);
 
   const handleLogout = () => {
-    localStorage.removeItem("token"); // Clear the token
-    navigate("/login"); // Redirect to login
+    // Clear token and redirect (implementation depends on your setup)
+    localStorage.removeItem('token');
+    navigate('/login');
+  };
+
+  const handleMenuOpen = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleMenuClose = () => {
+    setAnchorEl(null);
   };
 
   return (
     <>
-      <Navbar bg="light" expand="lg" fixed="top">
-        <Container>
-          <Navbar.Brand href="#home">
-            <img
-              src={pic}
-              alt="Store Logo"
-              className="circle"
-              height="40"
-            />
-          </Navbar.Brand>
-          <Navbar.Toggle aria-controls="navbarScroll" />
-          <Navbar.Collapse id="navbarScroll">
-            <Nav className="me-auto my-2 my-lg-0">
-              <LinkContainer to="/">
-                <Nav.Link className="text-primary">
-                  <i className="bi bi-house-door-fill"></i> Dashboard
-                </Nav.Link>
-              </LinkContainer>
-
-              {user.role === "admin" && (
-                <NavDropdown title="Management" id="management-dropdown">
-                  <LinkContainer to="/products">
-                    <NavDropdown.Item>
-                      <i className="bi bi-box-seam"></i> Products
-                    </NavDropdown.Item>
-                  </LinkContainer>
-                  <LinkContainer to="/user">
-                    <NavDropdown.Item>
-                      <i className="bi bi-people-fill"></i> Users
-                    </NavDropdown.Item>
-                  </LinkContainer>
-                </NavDropdown>
-              )}
-
-              <LinkContainer to="/sales">
-                <Nav.Link className="text-primary">
-                  <i className="bi bi-cart4"></i> Sales
-                </Nav.Link>
-              </LinkContainer>
-
-              {user.role === "admin" && (
-                <NavDropdown title="Operations" id="operations-dropdown">
-                  <LinkContainer to="/purchase">
-                    <NavDropdown.Item>
-                      <i className="bi bi-cash-stack"></i> Purchases
-                    </NavDropdown.Item>
-                  </LinkContainer>
-                  <LinkContainer to="/supplier">
-                    <NavDropdown.Item>
-                      <i className="bi bi-truck"></i> Suppliers
-                    </NavDropdown.Item>
-                  </LinkContainer>
-                </NavDropdown>
-              )}
-            </Nav>
-
-            <NavDropdown
-              title="Profile"
-              className="bi bi-person-circle"
-              align="end"
-            >
-              <LinkContainer to="/profile/edit">
-                <NavDropdown.Item>
-                  <i className="bi bi-person"></i> Edit Profile
-                </NavDropdown.Item>
-              </LinkContainer>
-              <LinkContainer to="/profile/changepassword">
-                <NavDropdown.Item>
-                  <i className="bi bi-key"></i> Change Password
-                </NavDropdown.Item>
-              </LinkContainer>
-              <NavDropdown.Item>
-    <i className="bi bi-gear"></i> Account Settings
-  </NavDropdown.Item>
-              <NavDropdown.Divider />
-              <Button variant="danger" onClick={handleLogout}>
-                Logout
+      <AppBar position="fixed">
+        <Toolbar>
+          <IconButton edge="start" color="inherit" aria-label="home" component={Link} to="/">
+            <Avatar alt="Store Logo" src={pic} />
+          </IconButton>
+          <Typography variant="h6" style={{ flexGrow: 1 }}>
+            Dashboard
+          </Typography>
+          {user?.role === 'admin' && (
+            <div>
+              <Button color="inherit" component={Link} to="/products">
+                <i className="bi bi-box-seam"></i> Products
               </Button>
-            </NavDropdown>
-          </Navbar.Collapse>
-        </Container>
-      </Navbar>
+              <Button color="inherit" component={Link} to="/user">
+                <i className="bi bi-people-fill"></i> Users
+              </Button>
+            </div>
+          )}
+          <Button color="inherit" component={Link} to="/sales">
+            <i className="bi bi-cart4"></i> Sales
+          </Button>
+          {user?.role === 'admin' && (
+            <div>
+              <Button color="inherit" component={Link} to="/purchase">
+                <i className="bi bi-cash-stack"></i> Purchases
+              </Button>
+              <Button color="inherit" component={Link} to="/supplier">
+                <i className="bi bi-truck"></i> Suppliers
+              </Button>
+            </div>
+          )}
+          <div>
+            <IconButton
+              aria-label="account of current user"
+              aria-controls="menu-appbar"
+              aria-haspopup="true"
+              color="inherit"
+              onClick={handleMenuOpen}
+            >
+              <AccountCircleIcon />
+            </IconButton>
+            <Menu
+              id="menu-appbar"
+              anchorEl={anchorEl}
+              anchorOrigin={{
+                vertical: 'top',
+                horizontal: 'right',
+              }}
+              keepMounted
+              transformOrigin={{
+                vertical: 'top',
+                horizontal: 'right',
+              }}
+              open={open}
+              onClose={handleMenuClose}
+            >
+              <MenuItem onClick={handleMenuClose}>
+                <ListItemIcon>
+                  <EditIcon fontSize="small" />
+                </ListItemIcon>
+               
+                <Button color="inherit" component={Link} to="/profile/edit">Edit Profile</Button>
+              </MenuItem>
+              <MenuItem onClick={handleMenuClose}>
+                <ListItemIcon>
+                  <KeyIcon fontSize="small" />
+                </ListItemIcon>
+                
+                <Button color="inherit" component={Link} to="/profile/changepassword">changepassword</Button>
+              </MenuItem>
+              <MenuItem onClick={handleLogout}>
+                <ListItemIcon>
+                  <LogoutIcon fontSize="small" />
+                </ListItemIcon>
+                <ListItemText primary="Logout" />
+              </MenuItem>
+            </Menu>
+          </div>
+        </Toolbar>
+      </AppBar>
       <div style={{ marginTop: 64 }}>
         <Outlet />
       </div>

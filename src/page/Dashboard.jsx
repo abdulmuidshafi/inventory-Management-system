@@ -1,65 +1,71 @@
 import React, { useEffect, useState } from "react";
 import AxiosInstance from "../api/AxiosInstance";
 import {
- Container,
- Row,
- Col,
- Card,
-} from "react-bootstrap"; 
+  Grid,
+  Typography,
+  Card,
+  CardContent,
+  CardActionArea,
+  CardActions,
+  IconButton,
+  Chip,
+} from "@mui/material";
+import { makeStyles } from "@mui/styles";
+import "bootstrap-icons/font/bootstrap-icons.css";
 
-import 'bootstrap-icons/font/bootstrap-icons.css'; // Import for icons
-
-import styled from 'styled-components';
-
-import './Dashboard.css';
-
-import { 
-
- // LineChart, 
-
- // BarChart,
-
- //PieChart 
-
-} from 'react-chartjs-2';
+const useStyles = makeStyles({
+  root: {
+    display: "flex",
+    flexDirection: "column",
+    minHeight: "100vh",
+  },
+  card: {
+    minWidth: 250,
+    backgroundColor: "#f5f5f5", // Light grey background
+    borderRadius: 5,
+  },
+  cardContent: {
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+    padding: 16,
+  },
+  cardValue: {
+    fontSize: 32,
+    fontWeight: 700,
+    marginBottom: 8,
+  },
+  cardAnnotation: {
+    color: "text.secondary",
+    fontSize: 14,
+  },
+  cardIcon: {
+    marginRight: 10,
+    fontSize: "1.5rem",
+    color: "#4285f4", // Blue icon color
+  },
+  // Add further styles for spacing, headers, etc.
+});
 
 export const Dashboard = () => {
+  const classes = useStyles();
+  const currentDate = new Date();
+const period = currentDate.getDay() === 0 ? "Weekly" : "Monthly"; // Example logic
+ 
+const [dailySales, setDailySales] = useState();
 
- const [dailySales, setDailySales] = useState();
+const [weeklySales, setWeeklySales] = useState();
 
- const [weeklySales, setWeeklySales] = useState();
+const [monthlySales, setMonthlySales] = useState(); 
 
- const [monthlySales, setMonthlySales] = useState(); 
+const [amountDaily,setAmountDaily]=useState({});
 
- const [amountDaily,setAmountDaily]=useState({});
+const [amountWeekly, setAmountWeekly] = useState({});
 
- const [amountWeekly, setAmountWeekly] = useState({});
+const [amountMonthly, setAmountMonthly] = useState({});
 
- const [amountMonthly, setAmountMonthly] = useState({});
-
- const [products, setProducts] = useState({});
-
- /*
-
- console.log(products); 
-
- console.log(dailySales);
-
- console.log(weeklySales);
-
- console.log(monthlySales);
-
- console.log(amountDaily);
-
- console.log(amountWeekly);
-
- console.log(amountMonthly);
-
- //console.log);
-
- */
-
- useEffect(() => { 
+const [products, setProducts] = useState({});
+useEffect(() => { 
 
   fetchDailySales();
 
@@ -150,273 +156,177 @@ export const Dashboard = () => {
    .catch((error) => console.log(error));
 
  }; 
-
-return (
-
-  
-
-<Container>
-
-  <Row className="row-cols-1 col-span-12 gap-4 p-4">
-
-  <Col sm={6} md={4} lg={3}>
-
-  <Card className="bg-gradient-primary">
-
-  <div className="dashboard-card-success">
-
-   <i className="bi bi-check-circle-fill text-white"></i>
-
-  </div>
-
-  <Card.Body>
-
-   <Card.Title className="text-sm font-medium text-gray-600">
-
-    the number of People you bought today
-
-   </Card.Title>
-
-   <Card.Text className="text-2xl font-semibold text-gray-900">
-
-    {dailySales?.sales}
-
-   </Card.Text>
-
-  </Card.Body>
-
- </Card>
-
-</Col>
-
-<Col sm={6} md={4} lg={3}>
-
- {/* Daily Sales card */}
-
- <Card className="bg-gradient-primary">.
-
-  <div className="dashboard-card-success">
-
-   <i className="bi bi-check-circle-fill text-white"></i>
-
-  </div>
-
-  <Card.Body>
-
-   <Card.Title className="text-sm font-medium text-gray-600">
-
-    the number of People you bought weekly
-
-   </Card.Title>
-
-   <Card.Text className="text-2xl font-semibold text-gray-900">
-
-    {weeklySales?.sales}
-
-   </Card.Text>
-
-  </Card.Body>
-
- </Card>
-
-</Col>
-
-<Col sm={6} md={4} lg={3}>
-
- {/* Daily Sales card */}
-
- <Card className="bg-gradient-success">
-
-  <div className="dashboard-card-success">
-
-   <i className="bi bi-check-circle-fill text-white"></i>
-
-  </div>
-
-  <Card.Body>
-
-   <Card.Title className="text-sm font-medium text-gray-600">
-
-    the number of People you bought monthly
-
-   </Card.Title>
-
-   <Card.Text className="text-2xl font-semibold text-gray-900">
-
-    {monthlySales?.sales}
-
-   </Card.Text>
-
-  </Card.Body>
-
- </Card>
-
-</Col>
-
-   <Col sm={6} md={4} lg={3}>
-
-    {/* Amount Sales Daily card */}
-
-    <Card className="bg-gradient-primary">.
-
- <div className="card-header">
-
-  <i className="bi bi-currency-eth"></i> <Card.Title className="card-title">Daily Sales Amount (Birr)</Card.Title>
-
- </div>
-
- <Card.Body>
-
-  <Card.Text className="card-value">
-
-   {amountDaily?.totalWeekAmount}
-
-  </Card.Text>
-
-  <Card.Text className="card-annotation">
-
-    
-
-  </Card.Text> </Card.Body>
-
+  return (
+<Grid container spacing={4} className={classes.root}>
+  {/* Sales Cards */}
+  <Grid item xs={12} md={3}>
+  <Card className={classes.card} style={{ backgroundColor: "#8BC34A" }}>
+  <CardActionArea>
+    <CardContent>
+      <IconButton className={classes.cardIcon} aria-label="People Icon">
+        <i className="bi bi-people" style={{ color: "#fff" }}></i>
+      </IconButton>
+      <Typography variant="h6" style={{ color: "#fff" }}>
+        Number of People Bought Today
+      </Typography>
+      <Typography className={classes.cardValue} style={{ color: "#fff", animation: "pulse 1s ease-in-out" }}>
+        {/*dailySales?.sales || 0*/}
+      </Typography>
+      <Typography className={classes.cardAnnotation} style={{ color: "#ddd" }}>
+      {dailySales?.sales}
+      </Typography>
+    </CardContent>
+  </CardActionArea>
 </Card>
 
-   </Col>
-
-   <Col sm={6} md={4} lg={3}>
-
- {/* Amount Sales Weekly card */}
-
- <Card className="bg-gradient-primary">
-
- <div className="card-header">
-
-  <i className="bi bi-currency-eth"></i> <Card.Title className="card-title">Weekly Sales Amount (Birr)</Card.Title>
-
- </div>
-
- <Card.Body>
-
-  <Card.Text className="card-value">
-
-  {amountWeekly?.totalWeekAmount}
-
-  </Card.Text>
-
-  <Card.Text className="card-annotation">
-
-    
-
-  </Card.Text> </Card.Body>
-
+  </Grid>
+  <Grid item xs={12} md={3}>
+  <Card className={classes.card} style={{ backgroundImage: "linear-gradient(to bottom, #f5f5f5, #e0e0e0)" }}>
+  <CardActionArea>
+    <CardContent>
+      <IconButton className={classes.cardIcon} aria-label="People Icon">
+        <i className="bi bi-calendar-week" style={{ color: "#4285f4" }}></i>
+      </IconButton>
+      <Typography variant="h6">Number of People Bought Weekly {period}</Typography>
+      <Typography className={classes.cardValue}>
+        {/*weeklySales?.sales || 0*/}
+      </Typography>
+      <Typography className={classes.cardAnnotation}>
+      {weeklySales?.sales}
+      </Typography> 
+    </CardContent>
+  </CardActionArea>
 </Card>
 
-</Col>
-
-<Col sm={6} md={4} lg={3}>
-
- {/* Monthly Sales Amount card */}
-
- <Card className="bg-gradient-primary">
-
- <div className="card-header">
-
-  <i className="bi bi-currency-eth"></i> <Card.Title className="card-title">Monthly Sales Amount (Birr)</Card.Title>
-
- </div>
-
- <Card.Body>
-
-  <Card.Text className="card-value">
-
-   {amountMonthly?.totalWeekAmount}
-
-  </Card.Text>
-
-  <Card.Text className="card-annotation">
-
-   Up 5% from last month
-
-  </Card.Text> </Card.Body>
-
+  </Grid>
+  <Grid item xs={12} md={3}>
+    <Card className={classes.card}>
+      <CardActionArea>
+        <CardContent>
+          <IconButton className={classes.cardIcon} aria-label="People Icon">
+            <i className="bi bi-calendar-month"></i>
+          </IconButton>
+          <Typography variant="h6">Number of People Bought Monthly</Typography>
+          <Typography className={classes.cardValue}>
+            {/*monthlySales?.sales || 0*/}
+          </Typography>
+          <Typography className={classes.cardAnnotation}>
+          {monthlySales?.sales} 
+          </Typography>
+        </CardContent>
+      </CardActionArea>
+    </Card>
+  </Grid>
+  <Grid item xs={12} md={3}>
+  <Card className={classes.card} style={{ backgroundColor: "#4285f4", color: "#fff" }}>
+  <CardActionArea>
+    <CardContent>
+      <IconButton className={classes.cardIcon} aria-label="Calendar Icon">
+        <i className="bi bi-calendar-week" style={{ color: "#fff" }}></i>
+      </IconButton>
+      <Typography variant="h6" style={{ fontSize: 18, fontWeight: 700 }}>
+        {/*period*/} Total Amount (Birr)
+      </Typography>
+      <Typography className={classes.cardValue} style={{ fontSize: 24, fontWeight: 700 }}>
+        {/*weeklyAmount?.total || 0*/}
+      </Typography>
+      <br />
+      <Typography variant="subtitle2" style={{ color: "#ddd" }}>
+        daily Total Amount (Birr):
+      </Typography>
+      <Typography className={classes.cardValue} style={{ color: "#ddd" }}>
+      {amountDaily?.totalWeekAmount}
+      </Typography>
+    </CardContent>
+  </CardActionArea>
 </Card>
 
+  </Grid>
 
+  <Grid item xs={12} md={3}>
+  <Card className={classes.card} style={{ backgroundColor: "#4285f4", color: "#fff" }}>
+  <CardActionArea>
+    <CardContent>
+      <IconButton className={classes.cardIcon} aria-label="Calendar Icon">
+        <i className="bi bi-calendar-week" style={{ color: "#fff" }}></i>
+      </IconButton>
+      <Typography variant="h6" style={{ fontSize: 18, fontWeight: 700 }}>
+        {/*period*/} Total Amount (Birr)
+      </Typography>
+      <Typography className={classes.cardValue} style={{ fontSize: 24, fontWeight: 700 }}>
+        {/*weeklyAmount?.total || 0*/}
+      </Typography>
+      <br />
+      <Typography variant="subtitle2" style={{ color: "#ddd" }}>
+        wekly Total Amount (Birr):
+      </Typography>
+      <Typography className={classes.cardValue} style={{ color: "#ddd" }}>
+      {amountWeekly?.totalWeekAmount}
+      </Typography>
+    </CardContent>
+  </CardActionArea>
+</Card>
 
-</Col>
+  </Grid>
+  <Grid item xs={12} md={3}>
+  <Card className={classes.card} style={{ backgroundColor: "#4285f4", color: "#fff" }}>
+  <CardActionArea>
+    <CardContent>
+      <IconButton className={classes.cardIcon} aria-label="Calendar Icon">
+        <i className="bi bi-calendar-week" style={{ color: "#fff" }}></i>
+      </IconButton>
+      <Typography variant="h6" style={{ fontSize: 18, fontWeight: 700 }}>
+        {/*period*/} Total Amount (Birr)
+      </Typography>
+      <Typography className={classes.cardValue} style={{ fontSize: 24, fontWeight: 700 }}>
+        {/*weeklyAmount?.total || 0*/}
+      </Typography>
+      <br />
+      <Typography variant="subtitle2" style={{ color: "#ddd" }}>
+        Monthly Total Amount (Birr):
+      </Typography>
+      <Typography className={classes.cardValue} style={{ color: "#ddd" }}>
+      {amountMonthly?.totalWeekAmount}
+      </Typography>
+    </CardContent>
+  </CardActionArea>
+</Card>
 
-   <Col sm={6} md={4} lg={3}>
+  </Grid>
+  <Grid item xs={12} md={3}>
+  <Card className={classes.card}>
+  <CardActionArea>
+    <CardContent>
+      <IconButton className={classes.cardIcon} aria-label="Product Icon">
+        <i className="bi bi-cart4" style={{ color: "#e91e63" }}></i>
+      </IconButton>
+      <Typography variant="h6">Total Number of Products</Typography> 
+      {products?.totalproduct}
+    </CardContent>
+  </CardActionArea>
+</Card>
 
-    {/* Total Products card */}
-
-    <Card className="rounded-lg border border-gray-200 bg-white p-6 shadow">
-
-  <div className="d-flex justify-content-end rounded bg-red-500 p-2">
-
-   <i className="bi bi-exclamation-circle-fill text-white"></i>
-
-  </div>
-
-  <Card.Body>
-
-   <Card.Title className="text-sm font-medium text-gray-600">
-
-    Total Products
-
-   </Card.Title>
-
-   <Card.Text className="text-2xl font-semibold text-gray-900">
-
-    {products?.totalproduct}
-
-   </Card.Text>
-
-  </Card.Body>
-
- </Card>
-
-   </Col>
-
-   <Col sm={6} md={4} lg={3}>
-
- {/* Out of Stock Products card */}
-
- <Card className="rounded-lg border border-gray-200 bg-danger p-6 shadow">
-
-  <div className="d-flex justify-content-end rounded bg-blue-500 p-2">
-
-   <i className="bi bi-exclamation-circle-fill text-white"></i>
-
-  </div>
-
-  <Card.Body>
-
-   <Card.Title className="dashboard-card-value">Out of Stock Products</Card.Title>
-
-   <Card.Text className="text-2xl font-semibold text-blue-600">
-
-    {products?.outofstockproduct}
-
-   </Card.Text>
-
-  </Card.Body>
-
- </Card>
-
-</Col>
-
-  </Row>
-
- </Container>
-
+  </Grid> 
   
-
-  
-
-);
-
- } 
-
- //change to react react-bootstrap
-
- 
+  <Grid item xs={12} md={3}>
+<Card className={classes.card} style={{ backgroundColor: "#f5f5f5", border: "1px solid #ddd" }}>
+  <CardActionArea>
+    <CardContent>
+      <IconButton className={classes.cardIcon} aria-label="Warning Icon">
+        <i className="bi bi-exclamation-triangle" style={{ color: "#e91e63" }}></i>
+      </IconButton>
+      <Typography variant="h6" style={{ color: "#333" }}>
+        Out of Stock Items
+      </Typography>
+      {products?.outofstockproduct}
+      <Typography className={classes.cardValue} style={{ color: "#333", fontSize: 18 }}>
+        {/* Update with data from your API */}
+      </Typography>
+      {/* Add a list or table to display the out-of-stock items here */}
+    </CardContent>
+  </CardActionArea>
+</Card>
+</Grid>
+</Grid>
+)
+}
