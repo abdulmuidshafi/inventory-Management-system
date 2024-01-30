@@ -66,7 +66,6 @@ const [amountMonthly, setAmountMonthly] = useState({});
 
 const [products, setProducts] = useState({});
 useEffect(() => { 
-
   fetchDailySales();
 
   fetchProductsData();
@@ -157,7 +156,8 @@ useEffect(() => {
 
  }; 
   return (
-<Grid container spacing={4} className={classes.root}>
+    <>
+    <Grid container spacing={4} className={classes.root}>
   {/* Sales Cards */}
   <Grid item xs={12} md={3}>
   <Card className={classes.card} style={{ backgroundColor: "#8BC34A" }}>
@@ -328,5 +328,7 @@ useEffect(() => {
 </Card>
 </Grid>
 </Grid>
+    </>
+
 )
 }

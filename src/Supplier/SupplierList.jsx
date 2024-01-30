@@ -6,8 +6,12 @@ import { useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEdit, faTrash } from '@fortawesome/free-solid-svg-icons';
 import ButtonGroup from 'react-bootstrap/ButtonGroup';
+import { Modal } from "react-bootstrap";
+import { toast } from "react-toastify";
 const SupplierList = () => {
   const [suppliers, setSupplier] = useState([]);
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
+  const [supplierToDelete, setSupplierToDelete] = useState(null);
   const navigate = useNavigate();
   useEffect(() => {
     fetchSupplier();
@@ -24,19 +28,26 @@ const SupplierList = () => {
     }
   };
 
-  const handleDelete = async (suppliersId) => {
-    try {
-      await AxiosInstance.delete(`/suppliers/${suppliersId}`);
-      // Handle successful deletion
-      // e.g., show success message, update product list, etc.
-      fetchSupplier();
-    } catch (error) {
-      console.error(error);
-      // Handle error
-      // e.g., show error message, etc.
-    }
+
+  const handleDeletePrompt = (supplierId) => {
+    setSupplierToDelete(supplierId);
+    setShowDeleteModal(true);
   };
 
+  const handleDeleteConfirm = async () => {
+    try {
+      await AxiosInstance.delete(`/suppliers/${supplierToDelete}`);
+      setShowDeleteModal(false);
+      setSupplierToDelete(null);
+      fetchSupplier(); // Refresh the supplier list
+      // Show success message to the user
+    toast.success  ("Supplier deleted successfully!");
+    } catch (error) {
+      console.error(error);
+      // Handle error and display an error message to the user
+      toast.error("Failed to delete supplier. Please try again.");
+    }
+  };
   return (
     <div className="p-3">
       <div className="d-flex p-2 justify-content-between align-items-center">
@@ -57,20 +68,41 @@ const SupplierList = () => {
         <td>{supplier.name}</td>
         <td>{supplier.description.length > 30 ? `${supplier.description.substring(0, 30)}...` : supplier.description}</td>
         <td>
-          <ButtonGroup>
-            <Button variant="primary" onClick={() => navigate(`/Supplier/edit/${supplier._id}`)}>
-              <FontAwesomeIcon icon={faEdit} /> Edit
-            </Button>
-            <Button variant="danger" onClick={() => handleDelete(supplier._id)}>
-              <FontAwesomeIcon icon={faTrash} /> Delete
-            </Button>
-          </ButtonGroup>
-        </td>
+            <ButtonGroup>
+              <Button
+                variant="primary"
+                onClick={() => navigate(`/Supplier/edit/${supplier._id}`)}
+              >
+                <FontAwesomeIcon icon={faEdit} /> Edit
+              </Button>
+              <Button
+                variant="danger"
+                onClick={() => handleDeletePrompt(supplier._id)}
+              >
+                <FontAwesomeIcon icon={faTrash} /> Delete
+              </Button>
+            </ButtonGroup>
+          </td>
       </tr>
     ))}
   </tbody>
 </Table>
-
+<Modal show={showDeleteModal} onHide={() => setShowDeleteModal(false)}>
+    <Modal.Header closeButton>
+      <Modal.Title>Confirm Deletion</Modal.Title>
+    </Modal.Header>
+    <Modal.Body>
+      Are you sure you want to delete this supplier? This action cannot be undone.
+    </Modal.Body>
+    <Modal.Footer>
+      <Button variant="secondary" onClick={() => setShowDeleteModal(false)}>
+        Cancel
+      </Button>
+      <Button variant="danger" onClick={handleDeleteConfirm}>
+        Delete
+      </Button>
+    </Modal.Footer>
+  </Modal>
 
     </div>
   );

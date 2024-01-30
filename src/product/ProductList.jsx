@@ -5,6 +5,7 @@ import AxiosInstance from "../api/AxiosInstance";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEdit, faTrash } from '@fortawesome/free-solid-svg-icons';
 import ButtonGroup from 'react-bootstrap/ButtonGroup';
+import { Modal } from "react-bootstrap";
 
 const ProductList = () => {
   const navigate = useNavigate();
@@ -12,7 +13,8 @@ const ProductList = () => {
   const [searchName, setSearchName] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
   const [pageSize, setPageSize] = useState(2);
-
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
+  const [productToDelete, setProductToDelete] = useState(null);
   useEffect(() => {
     fetchProducts();
   }, []);
@@ -29,7 +31,7 @@ const ProductList = () => {
     }
   };
 
-  const handleDelete = async (productId) => {
+ /* const handleDelete = async (productId) => {
     try {
       await AxiosInstance.delete(`/products/${productId}`);
       // Handle successful deletion
@@ -42,7 +44,7 @@ const ProductList = () => {
       // This code will always run, regardless of success or error
       // You can use it to do cleanup tasks, like hiding progress indicators
     }
-  };
+  };*/
 
   const handleSearch = (e) => {
     e.preventDefault();
@@ -72,7 +74,25 @@ const ProductList = () => {
     (currentPage - 1) * pageSize,
     currentPage * pageSize
   );
+  const handleDeletePrompt = (productId) => {
+    setProductToDelete(productId);
+    setShowDeleteModal(true);
+  };
 
+  const handleDeleteConfirm = async () => {
+    try {
+      await AxiosInstance.delete(`/products/${productToDelete}`);
+      setShowDeleteModal(false);
+      setProductToDelete(null);
+      fetchProducts(); // Refresh the product list
+      // Show success message to the user
+      alert("Product deleted successfully!");
+    } catch (error) {
+      console.error(error);
+      // Handle error and display an error message to the user
+      alert("Failed to delete product. Please try again.");
+    }
+  };
   return (
     <Card className="my-3 shadow-sm">
       <Card.Header>
@@ -131,27 +151,43 @@ const ProductList = () => {
             <td>{product.stock}</td>
             <td>{product.brand}</td>
             <td>
-              <ButtonGroup>
-                <Button
-                  variant="primary"
-                  size="sm"
-                  onClick={() => navigate(`/products/edit/${product._id}`)}
-                >
-                  <FontAwesomeIcon icon={faEdit} /> Edit
-                </Button>
-                <Button
-                  variant="danger"
-                  size="sm"
-                  onClick={() => handleDelete(product._id)}
-                >
-                  <FontAwesomeIcon icon={faTrash} /> Delete
-                </Button>
-              </ButtonGroup>
-            </td>
+            <ButtonGroup>
+              <Button
+                variant="primary"
+                size="sm"
+                onClick={() => navigate(`/products/edit/${product._id}`)}
+              >
+                <FontAwesomeIcon icon={faEdit} /> Edit
+              </Button>
+              <Button
+                variant="danger"
+                size="sm"
+                onClick={() => handleDeletePrompt(product._id)}
+              >
+                <FontAwesomeIcon icon={faTrash} /> Delete
+              </Button>
+            </ButtonGroup>
+          </td>
           </tr>
         ))}
       </tbody>
     </Table>
+    <Modal show={showDeleteModal} onHide={() => setShowDeleteModal(false)}>
+    <Modal.Header closeButton>
+      <Modal.Title>Confirm Deletion</Modal.Title>
+    </Modal.Header>
+    <Modal.Body>
+      Are you sure you want to delete this product? This action cannot be undone.
+    </Modal.Body>
+    <Modal.Footer>
+      <Button variant="secondary" onClick={() => setShowDeleteModal(false)}>
+        Cancel
+      </Button>
+      <Button variant="danger" onClick={handleDeleteConfirm}>
+        Delete
+      </Button>
+    </Modal.Footer>
+  </Modal>
         <Pagination className="mt-3 justify-content-between">
           <Pagination.Prev
             disabled={currentPage === 1}

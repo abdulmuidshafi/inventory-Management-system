@@ -223,29 +223,15 @@ let endIndex = currentPage*2
     </td>
     <td>
       <div className="d-none">
-<PrintInvoice key={[sale._id,sale.customer_name,Math.random(10000)]}  selectedSale={sale} ref={childRef} />
-      </div>
-      
+          <PrintInvoice key={[sale._id,sale.customer_name,Math.random(10000)]}  selectedSale={sale} ref={childRef} />
+      </div>      
       <button  className="btn-sccuss"
         onClick={callChilfFunction}
         // key={[sale._id,sale.customer_name,Math.random(10000)]}
       >
         Print
-      </button>
-      
+      </button>      
       </td>
-    {/* <td>
-                <Button
-                  variant="primary"
-                  size="sm"
-                  onClick={() => {
-                    setSelectedSale(sale);
-                    setInvoiceFormVisible(true);
-                  }}
-                >
-                  View Invoice
-                </Button>
-              </td> */}
   </tr>
 ))}
   </tbody>
