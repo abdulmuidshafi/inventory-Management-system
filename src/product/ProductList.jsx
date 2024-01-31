@@ -172,7 +172,7 @@ const ProductList = () => {
         ))}
       </tbody>
     </Table>
-    <Modal show={showDeleteModal} onHide={() => setShowDeleteModal(false)}>
+    <Modal style={{zIndex:10000}} show={showDeleteModal} onHide={() => setShowDeleteModal(false)}>
     <Modal.Header closeButton>
       <Modal.Title>Confirm Deletion</Modal.Title>
     </Modal.Header>
@@ -188,7 +188,7 @@ const ProductList = () => {
       </Button>
     </Modal.Footer>
   </Modal>
-        <Pagination className="mt-3 justify-content-between">
+        <Pagination className="mt-3">
           <Pagination.Prev
             disabled={currentPage === 1}
             onClick={handlePreviousPage}

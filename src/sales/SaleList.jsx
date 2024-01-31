@@ -164,117 +164,81 @@ let endIndex = currentPage*2
           
         <Table hover size="sm" className="border border-striped rounded shadow-sm w-100">
         <thead>
-  <tr>
-    <th scope="col">ID</th>
-    <th scope="col">Sale Order Time</th>
-    <th scope="col">Status</th>
-    <th scope="col">Seller</th>
-    <th scope="col">Products</th>
-    <th scope="col">Subtotal</th>
-    <th scope="col">Total</th>
-    <th scope="col">Customer Name</th>
-    <th scope="col">Customer TIN</th>
-    <th scope="col">Actions</th>
-    <th scope="col">Print</th>
-  </tr>
-</thead>
-  <tbody>
-  {filterSalesByCustomerName().slice(startIndex, endIndex).map((sale, index) => (
-  <tr key={sale._id} id={`printcontent${index}`}>
-    <td>{index + 1}</td>
-    <td>{sale.saleOrderTime}</td>
-    <td>
-      {sale.status === "complete" ? (
-        <Badge pill bg="success">Paid</Badge>
-      ) : (
-        <Button
-          variant="outline-primary"
-          size="sm"
-          onClick={() => confirmPayment(sale._id)}
-        >
-          Confirm Payment
-        </Button>
-      )}
-    </td>
-    <td>{sale?.seller?.name}</td>
-    <td>
-      <ul className="mb-0">
-        {sale.items.map((item) => (
-          <li key={item._id}>
-            {item.product.name} - {item.quantity}
-          </li>
-        ))}
-      </ul>
-    </td>
-    <td>{sale.subtotal}</td>
-    <td>{calculateTotal(sale.items)}</td>
-    <td>{sale.customer_name}</td>
-    <td>{sale.customer_TIN}</td>
-    <td>
-      {sale.status !== "complete" && (
-        <Button
-          variant="outline-danger"
-          size="sm"
-          onClick={() => returnProduct(sale._id)}
-        >
-          Return Product
-        </Button>
-      )}
-    </td>
-    <td>
-      <div className="d-none">
-          <PrintInvoice key={[sale._id,sale.customer_name,Math.random(10000)]}  selectedSale={sale} ref={childRef} />
-      </div>      
-      <button  className="btn-sccuss"
-        onClick={callChilfFunction}
-        // key={[sale._id,sale.customer_name,Math.random(10000)]}
-      >
-        Print
-      </button>      
-      </td>
-  </tr>
-))}
-  </tbody>
-</Table>
-<button disabled={currentPage === 1} onClick={()=>setCurrentPage(currentPage -1)}>pre</button>
-<button disabled={currentPage ===Math.ceil(  sales.length/2)} onClick={()=>setCurrentPage(currentPage +1)}>next</button>
-          {/* <DropdownButton as={Button} title="Export data" className="mt-3">
-            <Dropdown.Item onClick={printRef}>Print to PDF</Dropdown.Item>
-            <Dropdown.Item href="#">Export to Excel</Dropdown.Item>
-            <Dropdown.Item href="#">Export to CSV</Dropdown.Item>
-          </DropdownButton> */}
-            {/* {invoiceFormVisible && ( */}
-       {/* <Card className="mt-3">
-          <Card.Header>Invoice</Card.Header>
-          <Card.Body>
-            <div className="invoice-content" ref={invoiceFormRef}>
-            
-              {selectedSale && (
-                <>
-                  <h5>Invoice Number: {selectedSale._id}</h5>
-                  <p>Customer Name: {selectedSale.customer_name}</p>
-                  <p>Customer TIN: {selectedSale.customer_TIN}</p>
-                  <p>Sale Order Time: {selectedSale.saleOrderTime}</p>
-                  <ul>
-                    {selectedSale.items.map((item) => (
+            <tr>
+              <th scope="col">ID</th>
+              <th scope="col">Sale Order Time</th>
+              <th scope="col">Status</th>
+              <th scope="col">Seller</th>
+              <th scope="col">Products</th>
+              <th scope="col">Subtotal</th>
+              <th scope="col">Total</th>
+              <th scope="col">Customer Name</th>
+              <th scope="col">Customer TIN</th>
+              <th scope="col">Actions</th>
+              <th scope="col">Print</th>
+            </tr>
+        </thead>
+        <tbody>
+              {filterSalesByCustomerName().slice(startIndex, endIndex).map((sale, index) => (
+              <tr key={sale._id} id={`printcontent${index}`}>
+                <td>{index + 1}</td>
+                <td>{sale.saleOrderTime}</td>
+                <td>
+                  {sale.status === "complete" ? (
+                    <Badge pill bg="success">Paid</Badge>
+                  ) : (
+                    <Button
+                      variant="outline-primary"
+                      size="sm"
+                      onClick={() => confirmPayment(sale._id)}
+                    >
+                      Confirm Payment
+                    </Button>
+                  )}
+                </td>
+                <td>{sale?.seller?.name}</td>
+                <td>
+                  <ul className="mb-0">
+                    {sale.items.map((item) => (
                       <li key={item._id}>
-                        {item.product.name} - {item.quantity} - ${item.product.price}
+                        {item.product.name} - {item.quantity}
                       </li>
                     ))}
                   </ul>
-                  <p>Subtotal: ${selectedSale.subtotal}</p>
-                  <p>Total: ${calculateTotal(selectedSale.items)}</p>
-                  <Button variant="success" onClick={handlePrintInvoice}>
-                    Print Invoice
-                  </Button>
-                </>
-              )}
-                          </div>
-          </Card.Body>
-        </Card>*/}
-      {/* )} */}
-     
-        </div>
+                </td>
+                <td>{sale?.subtotal}</td>
+                <td>{calculateTotal(sale.items)}</td>
+                <td>{sale.customer_name}</td>
+                <td>{sale.customer_TIN}</td>
+                <td>
+                  {sale.status !== "complete" && (
+                    <Button
+                      variant="outline-danger"
+                      size="sm"
+                      onClick={() => returnProduct(sale._id)}
+                    >
+                      Return Product
+                    </Button>
+                  )}
+                </td>
+                <td>
+                  <div className="d-none">
+                      <PrintInvoice key={[sale._id,sale.customer_name,Math.random(10000)]}  selectedSale={sale} ref={childRef} />
+                  </div>      
+                  <button  className="btn-sccuss"
+                    onClick={callChilfFunction}
+                    // key={[sale._id,sale.customer_name,Math.random(10000)]}
+                  >
+                    Print
+                  </button>      
+                  </td>
+              </tr>
+            ))}
+        </tbody>
+</Table>
+<button disabled={currentPage === 1} onClick={()=>setCurrentPage(currentPage -1)}>pre</button>
+<button disabled={currentPage ===Math.ceil(  sales.length/2)} onClick={()=>setCurrentPage(currentPage +1)}>next</button>
+            </div>
       </Card.Body>
     </Card>
   </div>

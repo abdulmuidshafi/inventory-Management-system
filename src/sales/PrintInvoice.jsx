@@ -93,7 +93,7 @@ const PrintInvoiceForm = forwardRef((props, ref) => {
                     <tr key={item._id}>
                       <td>{item.product.name}</td>
                       <td>{item.quantity}</td>
-                      <td>${item.product.price}</td> {/* Corrected backslashes */}
+                      <td>${item.product.price}</td>
                       <td>${item.product.price * item.quantity}</td>
                     </tr>
                   ))}

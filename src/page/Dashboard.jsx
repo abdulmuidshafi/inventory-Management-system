@@ -157,15 +157,15 @@ useEffect(() => {
  }; 
   return (
     <>
-    <Grid container spacing={4} className={classes.root}>
+    <Grid container spacing={4} className={`${classes.root} mt-3 px-3`}>
   {/* Sales Cards */}
   <Grid item xs={12} md={3}>
   <Card className={classes.card} style={{ backgroundColor: "#8BC34A" }}>
   <CardActionArea>
     <CardContent>
-      <IconButton className={classes.cardIcon} aria-label="People Icon">
+      <div className={classes.cardIcon} aria-label="People Icon">
         <i className="bi bi-people" style={{ color: "#fff" }}></i>
-      </IconButton>
+      </div>
       <Typography variant="h6" style={{ color: "#fff" }}>
         Number of People Bought Today
       </Typography>
@@ -184,9 +184,9 @@ useEffect(() => {
   <Card className={classes.card} style={{ backgroundImage: "linear-gradient(to bottom, #f5f5f5, #e0e0e0)" }}>
   <CardActionArea>
     <CardContent>
-      <IconButton className={classes.cardIcon} aria-label="People Icon">
+      <div className={classes.cardIcon} aria-label="People Icon">
         <i className="bi bi-calendar-week" style={{ color: "#4285f4" }}></i>
-      </IconButton>
+      </div>
       <Typography variant="h6">Number of People Bought Weekly {period}</Typography>
       <Typography className={classes.cardValue}>
         {/*weeklySales?.sales || 0*/}
@@ -203,9 +203,9 @@ useEffect(() => {
     <Card className={classes.card}>
       <CardActionArea>
         <CardContent>
-          <IconButton className={classes.cardIcon} aria-label="People Icon">
+          <div className={classes.cardIcon} aria-label="People Icon">
             <i className="bi bi-calendar-month"></i>
-          </IconButton>
+          </div>
           <Typography variant="h6">Number of People Bought Monthly</Typography>
           <Typography className={classes.cardValue}>
             {/*monthlySales?.sales || 0*/}
@@ -221,9 +221,9 @@ useEffect(() => {
   <Card className={classes.card} style={{ backgroundColor: "#4285f4", color: "#fff" }}>
   <CardActionArea>
     <CardContent>
-      <IconButton className={classes.cardIcon} aria-label="Calendar Icon">
+      <div className={classes.cardIcon} aria-label="Calendar Icon">
         <i className="bi bi-calendar-week" style={{ color: "#fff" }}></i>
-      </IconButton>
+      </div>
       <Typography variant="h6" style={{ fontSize: 18, fontWeight: 700 }}>
         {/*period*/} Total Amount (Birr)
       </Typography>
@@ -247,9 +247,9 @@ useEffect(() => {
   <Card className={classes.card} style={{ backgroundColor: "#4285f4", color: "#fff" }}>
   <CardActionArea>
     <CardContent>
-      <IconButton className={classes.cardIcon} aria-label="Calendar Icon">
+      <div className={classes.cardIcon} aria-label="Calendar Icon">
         <i className="bi bi-calendar-week" style={{ color: "#fff" }}></i>
-      </IconButton>
+      </div>
       <Typography variant="h6" style={{ fontSize: 18, fontWeight: 700 }}>
         {/*period*/} Total Amount (Birr)
       </Typography>
@@ -272,9 +272,9 @@ useEffect(() => {
   <Card className={classes.card} style={{ backgroundColor: "#4285f4", color: "#fff" }}>
   <CardActionArea>
     <CardContent>
-      <IconButton className={classes.cardIcon} aria-label="Calendar Icon">
+      <div className={classes.cardIcon} aria-label="Calendar Icon">
         <i className="bi bi-calendar-week" style={{ color: "#fff" }}></i>
-      </IconButton>
+      </div>
       <Typography variant="h6" style={{ fontSize: 18, fontWeight: 700 }}>
         {/*period*/} Total Amount (Birr)
       </Typography>
@@ -291,15 +291,15 @@ useEffect(() => {
     </CardContent>
   </CardActionArea>
 </Card>
-
+{/* <button> <button></button></button> */}
   </Grid>
   <Grid item xs={12} md={3}>
   <Card className={classes.card}>
   <CardActionArea>
     <CardContent>
-      <IconButton className={classes.cardIcon} aria-label="Product Icon">
+      <div className={classes.cardIcon} aria-label="Product Icon">
         <i className="bi bi-cart4" style={{ color: "#e91e63" }}></i>
-      </IconButton>
+      </div>
       <Typography variant="h6">Total Number of Products</Typography> 
       {products?.totalproduct}
     </CardContent>
@@ -312,9 +312,9 @@ useEffect(() => {
 <Card className={classes.card} style={{ backgroundColor: "#f5f5f5", border: "1px solid #ddd" }}>
   <CardActionArea>
     <CardContent>
-      <IconButton className={classes.cardIcon} aria-label="Warning Icon">
+      <div className={classes.cardIcon} aria-label="Warning Icon">
         <i className="bi bi-exclamation-triangle" style={{ color: "#e91e63" }}></i>
-      </IconButton>
+      </div>
       <Typography variant="h6" style={{ color: "#333" }}>
         Out of Stock Items
       </Typography>
