@@ -15,14 +15,14 @@ import { toast } from "react-toastify";
 const AddSale = () => {
   const [products, setProducts] = useState([]);
   const [formData, setFormData] = useState({
-   // seller: "",
+    // seller: "",
     items: [],
     customer_name: "",
     customer_TIN: "",
   });
   //const [sellerInfo, setSellerInfo] = useState(null);
   const navigate = useNavigate();
-const user = JSON.parse( localStorage.getItem("token"))
+  const user = JSON.parse(localStorage.getItem("token"));
   useEffect(() => {
     // Fetch product data
     fetchProducts();
@@ -71,11 +71,11 @@ const user = JSON.parse( localStorage.getItem("token"))
       items: updatedItems,
     });
   };
-console.log(products);
+  console.log(products);
   const handleAddItem = () => {
     setFormData({
       ...formData,
-      items: [...formData.items, { product: "", quantity: ""}],
+      items: [...formData.items, { product: "", quantity: "" }],
     });
   };
 
@@ -91,15 +91,15 @@ console.log(products);
   const handleSubmit = (event) => {
     event.preventDefault();
 
-console.log(formData,user);
-// return
-    AxiosInstance.post("/sales", {...formData,seller:user._id})
+    console.log(formData, user);
+    // return
+    AxiosInstance.post("/sales", { ...formData, seller: user._id })
       .then((response) => response.data)
       .then((data) => {
         console.log("Sale added successfully:", data);
-        setFormData({          
+        setFormData({
           items: [],
-          customer_name: "", 
+          customer_name: "",
           customer_TIN: "",
         });
         navigate("/sales");
@@ -132,82 +132,84 @@ console.log(formData,user);
         <h4>Create New Sale</h4>
       </CardHeader>
       <CardBody>
-      <Form onSubmit={handleSubmit}>
-       
+        <Form onSubmit={handleSubmit}>
+          <Form.Group controlId="items">
+            <Form.Label>Items</Form.Label>
+            {formData.items.map((item, index) => (
+              <div key={index}>
+                <Form.Control
+                  as="select"
+                  name="product"
+                  value={item.product}
+                  onChange={(event) => handleItemChange(event, index)}
+                  required
+                >
+                  <option value="">Select a product</option>
+                  {products
+                    .filter((prod) => prod.stock > 0)
+                    .map((product) => (
+                      <option key={product._id} value={product._id}>
+                        {product.name}
+                      </option>
+                    ))}
+                </Form.Control>
+                <Form.Control
+                  type="number"
+                  name="quantity"
+                  placeholder="Quantity of product"
+                  value={item.quantity}
+                  onChange={(event) => handleItemChange(event, index)}
+                  required
+                />
+                <Form.Label>Unit Price</Form.Label>
+                <Form.Control
+                  type="text"
+                  name="unitPrice"
+                  value={calculateUnitPrice(item.product, item.quantity)}
+                  readOnly
+                />
+                <Button
+                  variant="danger"
+                  onClick={() => handleRemoveItem(index)}
+                >
+                  Remove
+                </Button>
+              </div>
+            ))}
+          </Form.Group>
 
-        <Form.Group controlId="items">
-          <Form.Label>Items</Form.Label>
-          {formData.items.map((item, index) => (
-            <div key={index}>
-              <Form.Control
-                as="select"
-                name="product"
-                value={item.product}
-                onChange={(event) => handleItemChange(event, index)}
-                required
-              >
-                <option value="">Select a product</option>
-                {products.filter(prod=>prod.stock>0).map((product) => (
-                  <option key={product._id} value={product._id}>
-                    {product.name}
-                  </option>
-                ))}
-              </Form.Control>
-              <Form.Control
-                type="number"
-                name="quantity"
-                placeholder="Quantity of product"
-                value={item.quantity}
-                onChange={(event) => handleItemChange(event, index)}
-                required
-              />
-              <Form.Label>Unit Price</Form.Label>
-              <Form.Control
-                type="text"
-                name="unitPrice"
-                value={calculateUnitPrice(item.product, item.quantity)}
-                readOnly
-              />
-              <Button variant="danger" onClick={() => handleRemoveItem(index)}>
-                Remove
-              </Button>
-            </div>
-          ))}
-        </Form.Group>
+          <Button variant="primary" onClick={handleAddItem}>
+            Add Item
+          </Button>
 
-        <Button variant="primary" onClick={handleAddItem}>
-          Add Item
-        </Button>
+          <Form.Group controlId="customer_name">
+            <Form.Label>Customer Name</Form.Label>
+            <Form.Control
+              type="text"
+              name="customer_name"
+              value={formData.customer_name}
+              onChange={handleInputChange}
+              required
+            />
+          </Form.Group>
 
-        <Form.Group controlId="customer_name">
-          <Form.Label>Customer Name</Form.Label>
-          <Form.Control
-            type="text"
-            name="customer_name"
-            value={formData.customer_name}
-            onChange={handleInputChange}
-            required
-          />
-        </Form.Group>
+          <Form.Group controlId="customer_TIN">
+            <Form.Label>Customer TIN</Form.Label>
+            <Form.Control
+              type="text"
+              name="customer_TIN"
+              value={formData.customer_TIN}
+              onChange={handleInputChange}
+              required
+            />
+          </Form.Group>
 
-        <Form.Group controlId="customer_TIN">
-          <Form.Label>Customer TIN</Form.Label>
-          <Form.Control
-            type="text"
-            name="customer_TIN"
-            value={formData.customer_TIN}
-            onChange={handleInputChange}
-            required
-          />
-        </Form.Group>
-
-        <Button variant="primary" type="submit">
-          Submit Sale
-        </Button>
-      </Form>
+          <Button variant="primary" type="submit">
+            Submit Sale
+          </Button>
+        </Form>
       </CardBody>
     </Card>
-
   );
 };
 

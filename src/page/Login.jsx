@@ -29,16 +29,15 @@ const Login = () => {
       // Replace "/dashboard" with the actual path you want to redirect the user after login
       window.location.href = "/";
       setEmail("");
-    setPassword("");
+      setPassword("");
     } catch (error) {
       // Handle the login error
       console.error("Login error:", error);
       // setError(error?.response?.data.message);
-      toast.error(error?.response?.data.message)
+      toast.error(error?.response?.data.message);
     }
 
     // Reset the form fields
-    
   };
 
   return (

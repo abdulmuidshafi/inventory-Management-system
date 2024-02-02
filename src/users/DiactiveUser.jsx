@@ -1,5 +1,5 @@
-import React from 'react';
-import Button from 'react-bootstrap/Button';
+import React from "react";
+import Button from "react-bootstrap/Button";
 import AxiosInstance from "../api/AxiosInstance";
 
 const DeactivateUser = ({ id, onDeactivate }) => {
@@ -8,7 +8,7 @@ const DeactivateUser = ({ id, onDeactivate }) => {
       await AxiosInstance.patch(`/user/${id}/deactivate`);
       onDeactivate(id);
     } catch (error) {
-      console.error('Error deactivating user:', error);
+      console.error("Error deactivating user:", error);
     }
   };
 

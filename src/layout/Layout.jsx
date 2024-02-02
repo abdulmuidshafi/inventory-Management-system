@@ -1,135 +1,180 @@
-import React, { useState } from 'react';
-import { Outlet, Link } from 'react-router-dom';
-
-import { useNavigate } from 'react-router-dom';
+import React, { useState } from "react";
+import { Outlet, Link, useLocation } from "react-router-dom";
+import "./styles.css";
+import { useNavigate } from "react-router-dom";
 import {
-  AppBar,
-  Toolbar,
   IconButton,
-  Typography,
   Button,
   Menu,
   MenuItem,
-  Avatar,
   ListItemIcon,
-  ListItemText
-} from '@mui/material';
-import HomeIcon from '@mui/icons-material/Home';
-import AccountCircleIcon from '@mui/icons-material/AccountCircle';
-import EditIcon from '@mui/icons-material/Edit';
-import KeyIcon from '@mui/icons-material/VpnKey';
-import LogoutIcon from '@mui/icons-material/Logout';
-import pic from '../assets/photo_2022-02-10_07-16-12.jpg';
-
+  ListItemText,
+} from "@mui/material";
+import AccountCircleIcon from "@mui/icons-material/AccountCircle";
+import EditIcon from "@mui/icons-material/Edit";
+import KeyIcon from "@mui/icons-material/VpnKey";
+import LogoutIcon from "@mui/icons-material/Logout";
+import {
+  MDBContainer,
+  MDBNavbar,
+  MDBIcon,
+  MDBCollapse,
+  MDBListGroup,
+  MDBListGroupItem,
+} from "mdb-react-ui-kit";
 const Layout = () => {
+  const [showShow, setShowShow] = useState(false);
+  const toggleShow = () => setShowShow(!showShow);
   const navigate = useNavigate();
-  const user = JSON.parse(localStorage.getItem('token'));
-  
-  // Define anchorEl and open state for the user profile menu
+  const location = useLocation();
+  const user = JSON.parse(localStorage.getItem("token"));
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
-
   const handleLogout = () => {
-    // Clear token and redirect (implementation depends on your setup)
-    localStorage.removeItem('token');
-    navigate('/login');
+    localStorage.removeItem("token");
+    navigate("/login");
   };
-
   const handleMenuOpen = (event) => {
     setAnchorEl(event.currentTarget);
   };
-
   const handleMenuClose = () => {
     setAnchorEl(null);
   };
-
   return (
     <>
-      <AppBar position="fixed">
-        <Toolbar>
-          <IconButton edge="start" color="inherit" aria-label="home" component={Link} to="/">
-            <Avatar alt="Store Logo" src={pic} />
-          </IconButton>
-          <Typography variant="h6" style={{ flexGrow: 1 }}>
-            Dashboard
-          </Typography>
-          {user?.role === 'admin' && (
-            <div>
-              <Button color="inherit" component={Link} to="/products">
-                <i className="bi bi-box-seam"></i> Products
-              </Button>
-              <Button color="inherit" component={Link} to="/user">
-                <i className="bi bi-people-fill"></i> Users
-              </Button>
-            </div>
-          )}
-          <Button color="inherit" component={Link} to="/sales">
-            <i className="bi bi-cart4"></i> Sales
-          </Button>
-          {user?.role === 'admin' && (
-            <div>
-              <Button color="inherit" component={Link} to="/purchase">
-                <i className="bi bi-cash-stack"></i> Purchases
-              </Button>
-              <Button color="inherit" component={Link} to="/supplier">
-                <i className="bi bi-truck"></i> Suppliers
-              </Button>
-            </div>
-          )}
-          <div>
-            <IconButton
-              aria-label="account of current user"
-              aria-controls="menu-appbar"
-              aria-haspopup="true"
-              color="inherit"
-              onClick={handleMenuOpen}
-            >
-              <AccountCircleIcon />
-            </IconButton>
-            <Menu
-              id="menu-appbar"
-              anchorEl={anchorEl}
-              anchorOrigin={{
-                vertical: 'top',
-                horizontal: 'right',
-              }}
-              keepMounted
-              transformOrigin={{
-                vertical: 'top',
-                horizontal: 'right',
-              }}
-              open={open}
-              onClose={handleMenuClose}
-            >
-              <MenuItem onClick={handleMenuClose}>
-                <ListItemIcon>
-                  <EditIcon fontSize="small" />
-                </ListItemIcon>
-               
-                <Button color="inherit" component={Link} to="/profile/edit">Edit Profile</Button>
-              </MenuItem>
-              <MenuItem onClick={handleMenuClose}>
-                <ListItemIcon>
-                  <KeyIcon fontSize="small" />
-                </ListItemIcon>
-                
-                <Button color="inherit" component={Link} to="/profile/changepassword">changepassword</Button>
-              </MenuItem>
-              <MenuItem onClick={handleLogout}>
-                <ListItemIcon>
-                  <LogoutIcon fontSize="small" />
-                </ListItemIcon>
-                <ListItemText primary="Logout" />
-              </MenuItem>
-            </Menu>
+      <div>
+        <MDBCollapse
+          show={showShow.toString()}
+          tag="nav"
+          className="d-lg-block bg-white sidebar"
+        >
+          <div className="position-sticky">
+            <MDBListGroup flush className="mt-1">
+              <MDBListGroupItem
+                tag="a"
+                onClick={() => navigate("/")}
+                action
+                active={location.pathname.length === 1}
+                className="border-0 border-bottom rounded"
+              >
+                <MDBIcon fas icon="tachometer-alt me-3" />
+                Dashboard
+              </MDBListGroupItem>
+              {user.role === "admin" && (
+                <>
+                  <MDBListGroupItem
+                    tag="a"
+                    onClick={() => navigate("/purchase")}
+                    action
+                    active={location.pathname.includes("purchase")}
+                    className="border-0 border-bottom rounded"
+                  >
+                    <MDBIcon fas icon="globe me-3" />
+                    <i className="bi bi-cash-stack me-2"></i> Purchase
+                  </MDBListGroupItem>
+
+                  <MDBListGroupItem
+                    tag="a"
+                    active={location.pathname.includes("products")}
+                    onClick={() => navigate("/products")}
+                    action
+                    className="border-0 border-bottom rounded"
+                  >
+                    <MDBIcon far icon="chart-bar me-3" />
+                    <i className="bi bi-box-seam me-2"></i> Products
+                  </MDBListGroupItem>
+                  <MDBListGroupItem
+                    tag="a"
+                    active={location.pathname.includes("supplier")}
+                    onClick={() => navigate("/supplier")}
+                    action
+                    className="border-0 border-bottom rounded"
+                  >
+                    <MDBIcon fas icon="calendar me-3" />
+                    <i className="bi bi-truck me-2"></i> Supplier
+                  </MDBListGroupItem>
+
+                  <MDBListGroupItem
+                    tag="a"
+                    onClick={() => navigate("/user")}
+                    active={location.pathname.includes("user")}
+                    action
+                    className="border-0 border-bottom rounded"
+                  >
+                    <MDBIcon fas icon="calendar me-3" />
+                    <i className="bi bi-people-fill me-2"></i> User
+                  </MDBListGroupItem>
+                </>
+              )}
+              <MDBListGroupItem
+                tag="a"
+                onClick={() => navigate("/sales")}
+                action
+                active={location.pathname.includes("sales")}
+                className="border-0 border-bottom rounded"
+              >
+                <MDBIcon fas icon="chart-pie me-3" />
+                <i className="bi bi-cart4 me-2"></i> Sales
+              </MDBListGroupItem>
+            </MDBListGroup>
           </div>
-        </Toolbar>
-      </AppBar>
-      <div style={{ marginTop: 64 }}>
-        <Outlet />
+        </MDBCollapse>
+        <MDBNavbar expand="lg" light bgColor="light" className="py-1">
+          <MDBContainer fluid>
+            <h4 className="ps-2">Inventory App</h4>
+            <div className="ms-auto">
+              <IconButton
+                aria-label="account of current user"
+                aria-controls="menu-appbar"
+                aria-haspopup="true"
+                color="inherit"
+                onClick={handleMenuOpen}
+                className="me-2"
+              >
+                <AccountCircleIcon />
+              </IconButton>
+              <Menu
+                id="menu-appbar"
+                anchorEl={anchorEl}
+                keepMounted
+                open={open}
+                onClose={handleMenuClose}
+              >
+                <MenuItem onClick={handleMenuClose}>
+                  <ListItemIcon>
+                    <EditIcon fontSize="small" />
+                  </ListItemIcon>
+                  <Button color="inherit" component={Link} to="/profile/edit">
+                    Edit Profile
+                  </Button>
+                </MenuItem>
+                <MenuItem onClick={handleMenuClose}>
+                  <ListItemIcon>
+                    <KeyIcon fontSize="small" />
+                  </ListItemIcon>
+                  <Button
+                    color="inherit"
+                    component={Link}
+                    to="/profile/changepassword"
+                  >
+                    Change Password
+                  </Button>
+                </MenuItem>
+                <MenuItem onClick={handleLogout}>
+                  <ListItemIcon>
+                    <LogoutIcon fontSize="small" />
+                  </ListItemIcon>
+                  <ListItemText primary="Logout" />
+                </MenuItem>
+              </Menu>
+            </div>
+          </MDBContainer>
+        </MDBNavbar>
+        <div className="containerLeft px-3 py-1">
+          <Outlet />
+        </div>
       </div>
     </>
   );
 };
-
 export default Layout;

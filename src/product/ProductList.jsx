@@ -2,9 +2,9 @@ import React, { useState, useEffect } from "react";
 import { Card, Table, Form, Button, Pagination } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import AxiosInstance from "../api/AxiosInstance";
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faEdit, faTrash } from '@fortawesome/free-solid-svg-icons';
-import ButtonGroup from 'react-bootstrap/ButtonGroup';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faEdit, faTrash } from "@fortawesome/free-solid-svg-icons";
+import ButtonGroup from "react-bootstrap/ButtonGroup";
 import { Modal } from "react-bootstrap";
 
 const ProductList = () => {
@@ -31,7 +31,7 @@ const ProductList = () => {
     }
   };
 
- /* const handleDelete = async (productId) => {
+  /* const handleDelete = async (productId) => {
     try {
       await AxiosInstance.delete(`/products/${productId}`);
       // Handle successful deletion
@@ -108,86 +108,100 @@ const ProductList = () => {
       </Card.Header>
       <Card.Body>
         <div>
-        <Form onSubmit={handleSearch} className="d-flex align-items-center">
-  <Form.Control
-    className="d-flex align-items-center form-control-sm"
-    type="text"
-    placeholder="Search by product name"
-    value={searchName}
-    onChange={(e) => setSearchName(e.target.value)}
-    style={{ width: "150px", marginLeft: "auto" }}
-  />
-  <Button variant="primary" type="submit">
-    <i className="fas fa-search"></i> Search
-  </Button>
-</Form>
+          <Form onSubmit={handleSearch} className="d-flex align-items-center">
+            <Form.Control
+              className="d-flex align-items-center form-control-sm"
+              type="text"
+              placeholder="Search by product name"
+              value={searchName}
+              onChange={(e) => setSearchName(e.target.value)}
+              style={{ width: "150px", marginLeft: "auto" }}
+            />
+            <Button variant="primary" type="submit">
+              <i className="fas fa-search"></i> Search
+            </Button>
+          </Form>
         </div>
 
-        <Table striped bordered hover size="sm">
-      <thead>
-        <tr>
-          <th>No</th>
-          <th>Name</th>
-          <th style={{ width: '30%' }}>Description</th>
-          <th>Price</th>
-          <th>Stock</th>
-          <th>Brand</th>
-          <th>Actions</th>
-        </tr>
-      </thead>
-      <tbody>
-        {filteredProductsOnPage.map((product, index) => (
-          <tr key={product._id} style={index % 2 ? { backgroundColor: '#f5f5f5' } : null}>
-            <td>{index + 1}</td>
-            <td>{product.name}</td>
-            <td>
-              {product.description.length > 50 ? (
-                <span>{product.description.substring(0, 47)}... <a href="#">Read more</a></span>
-              ) : (
-                product.description
-              )}
-            </td>
-            <td>{product.price}</td>
-            <td>{product.stock}</td>
-            <td>{product.brand}</td>
-            <td>
-            <ButtonGroup>
-              <Button
-                variant="primary"
-                size="sm"
-                onClick={() => navigate(`/products/edit/${product._id}`)}
+        <Table striped bordered hover size="sm" responsive>
+          <thead>
+            <tr>
+              <th>No</th>
+              <th>Name</th>
+              <th style={{ width: "30%" }}>Description</th>
+              <th>Price</th>
+              <th>Stock</th>
+              <th>Brand</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            {filteredProductsOnPage.map((product, index) => (
+              <tr
+                key={product._id}
+                style={index % 2 ? { backgroundColor: "#f5f5f5" } : null}
               >
-                <FontAwesomeIcon icon={faEdit} /> Edit
-              </Button>
-              <Button
-                variant="danger"
-                size="sm"
-                onClick={() => handleDeletePrompt(product._id)}
-              >
-                <FontAwesomeIcon icon={faTrash} /> Delete
-              </Button>
-            </ButtonGroup>
-          </td>
-          </tr>
-        ))}
-      </tbody>
-    </Table>
-    <Modal style={{zIndex:10000}} show={showDeleteModal} onHide={() => setShowDeleteModal(false)}>
-    <Modal.Header closeButton>
-      <Modal.Title>Confirm Deletion</Modal.Title>
-    </Modal.Header>
-    <Modal.Body>
-      Are you sure you want to delete this product? This action cannot be undone.
-    </Modal.Body>
-    <Modal.Footer>
-      <Button variant="secondary" onClick={() => setShowDeleteModal(false)}>
-        Cancel
-      </Button>
-      <Button variant="danger" onClick={handleDeleteConfirm}>
-        Delete
-      </Button>
-    </Modal.Footer>
-  </Modal>
+                <td>{index + 1}</td>
+                <td>{product.name}</td>
+                <td>
+                  {product.description.length > 50 ? (
+                    <span>
+                      {product.description.substring(0, 47)}...{" "}
+                      <a href="#">Read more</a>
+                    </span>
+                  ) : (
+                    product.description
+                  )}
+                </td>
+                <td>{product.price}</td>
+                <td>{product.stock}</td>
+                <td>{product.brand}</td>
+                <td>
+                  <ButtonGroup>
+                    <Button
+                      variant="primary"
+                      size="sm"
+                      onClick={() => navigate(`/products/edit/${product._id}`)}
+                    >
+                      <FontAwesomeIcon icon={faEdit} /> Edit
+                    </Button>
+                    <Button
+                      variant="danger"
+                      size="sm"
+                      onClick={() => handleDeletePrompt(product._id)}
+                    >
+                      <FontAwesomeIcon icon={faTrash} /> Delete
+                    </Button>
+                  </ButtonGroup>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </Table>
+        <Modal
+          style={{ zIndex: 10000 }}
+          show={showDeleteModal}
+          onHide={() => setShowDeleteModal(false)}
+        >
+          <Modal.Header closeButton>
+            <Modal.Title>Confirm Deletion</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+            Are you sure you want to delete this product? This action cannot be
+            undone.
+          </Modal.Body>
+          <Modal.Footer>
+            <Button
+              variant="secondary"
+              onClick={() => setShowDeleteModal(false)}
+            >
+              Cancel
+            </Button>
+            <Button variant="danger" onClick={handleDeleteConfirm}>
+              Delete
+            </Button>
+          </Modal.Footer>
+        </Modal>
         <Pagination className="mt-3">
           <Pagination.Prev
             disabled={currentPage === 1}
@@ -198,7 +212,7 @@ const ProductList = () => {
             onClick={() => setCurrentPage(1)}
           >
             1
-          </Pagination.Item> 
+          </Pagination.Item>
           {/* Generate page numbers based on page size and total products */}
           {Array.from({ length: Math.min(5, totalPages) }).map((_, i) => (
             <Pagination.Item

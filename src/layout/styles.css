@@ -1,85 +1,55 @@
-/* Reset basic styles 
 body {
-    margin: 0;
-    padding: 0;
-    font-family: Inter, sans-serif;
-    color: #333333;
+  background-color: #fbfbfb;
+}
+
+@media (min-width: 992px) {
+  .sidebar {
+    height: unset !important;
   }
-  
-  .navbar-custom {
-    background-color: #f5f5f5;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+}
+
+/* Sidebar */
+.sidebar {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  padding: 58px 0 0;
+  /* Height of navbar */
+  box-shadow: 0 2px 5px 0 rgb(0 0 0 / 5%), 0 2px 10px 0 rgb(0 0 0 / 5%);
+  width: 240px;
+  /* z-index: 600; */
+}
+
+.sidebar.show {
+  height: 100vh;
+}
+
+@media (max-width: 992px) {
+  .sidebar {
+    width: 100%;
   }
-  
-  .container-custom {
-    padding: 0.75rem 1rem;
-    max-width: 1200px;
-    margin: 0 auto;
+}
+
+.sidebar .active {
+  border-radius: 5px;
+  box-shadow: 0 2px 5px 0 rgb(0 0 0 / 16%), 0 2px 10px 0 rgb(0 0 0 / 12%);
+}
+
+.sidebar-sticky {
+  position: relative;
+  top: 0;
+  height: calc(100vh - 48px);
+  padding-top: 0.5rem;
+  overflow-x: hidden;
+  overflow-y: auto;
+  /* Scrollable contents if viewport is shorter than content. */
+}
+.containerLeft {
+  margin-left: 240px;
+}
+@media (max-width: 992px) {
+  .containerLeft {
+    margin-left: 0;
   }
-  
-  .navbar-brand-custom {
-    display: flex;
-    align-items: center;
-  }
-  
-  .navbar-brand-custom img {
-    border-radius: 50%;
-  }
-  
-  .navbar-nav-custom {
-    display: flex;
-    align-items: center;
-    list-style: none;
-    margin: 0;
-  }
-  
-  .nav-link-custom {
-    padding: 0.5rem 1rem;
-    color: #666;
-    transition: color 0.2s ease-in-out;
-  }
-  
-  .nav-link-custom:hover {
-    color: #333;
-  }
-  
-  .nav-link-custom.text-primary {
-    color: #007bff;
-  }
-  
-  .dropdown-custom {
-    color: #666;
-  }
-  
-  .dropdown-custom::before {
-    content: "";
-    display: inline-block;
-    width: 10px;
-    height: 10px;
-    margin-right: 5px;
-    border-radius: 50%;
-    background-color: #cccccc;
-    vertical-align: middle;
-  }
-  
-  .dropdown-custom:hover {
-    color: #333;
-  }
-  
-  .dropdown-custom:hover::before {
-    background-color: #999;
-  }
-  
-  .btn-danger {
-    background-color: #dc3545;
-    border-color: #dc3545;
-  }
-  
-  .content-wrapper {
-    padding: 2rem;
-    min-height: calc(100vh - 64px);
-  }
-  
-  /* ... Add additional styles for specific elements and components ...
-   */
-  
+}
