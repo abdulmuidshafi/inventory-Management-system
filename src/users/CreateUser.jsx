@@ -36,6 +36,7 @@ const CreateUser = () => {
     } catch (error) {
       console.error("Error creating user:", error);
       // Handle error
+      toast.error("Handle error does not provive");
     }
   };
 
@@ -47,7 +48,7 @@ const CreateUser = () => {
       <CardBody>
         <Form onSubmit={handleSubmit}>
           <Row>
-            <Col>
+            <Col sm={10}>
               <Form.Group controlId="formName">
                 <Form.Label>Name</Form.Label>
                 <Form.Control
@@ -58,7 +59,7 @@ const CreateUser = () => {
                 />
               </Form.Group>
             </Col>
-            <Col>
+            <Col sm={10}>
               <Form.Group controlId="formEmail">
                 <Form.Label>Email</Form.Label>
                 <Form.Control
@@ -70,7 +71,7 @@ const CreateUser = () => {
               </Form.Group>
             </Col>
 
-            <Col>
+            <Col sm={10}>
               <Form.Group controlId="formPassword">
                 <Form.Label>Password</Form.Label>
                 <Form.Control
@@ -81,18 +82,19 @@ const CreateUser = () => {
                 />
               </Form.Group>
             </Col>
-            <Col>
+            <Col sm={10}>
               <Form.Group controlId="formRole">
                 <Form.Label>Role</Form.Label>
-                <Form.Control
-                  type="text"
-                  placeholder="Enter role"
+                <Form.Select
                   value={role}
                   onChange={(e) => setRole(e.target.value)}
-                />
+                >
+                  {/*<option value="admin">admin</option>*/}
+                  <option value="seller">seller</option>
+                </Form.Select>
               </Form.Group>
             </Col>
-            <Col>
+            <Col sm={10}>
               <Form.Group controlId="formPhone">
                 <Form.Label>Phone</Form.Label>
                 <Form.Control
@@ -104,7 +106,7 @@ const CreateUser = () => {
               </Form.Group>
             </Col>
           </Row>
-          <Button variant="primary" type="submit">
+          <Button variant="primary" type="submit" className="mt-2">
             Create User
           </Button>
         </Form>

@@ -14,6 +14,7 @@ import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import EditIcon from "@mui/icons-material/Edit";
 import KeyIcon from "@mui/icons-material/VpnKey";
 import LogoutIcon from "@mui/icons-material/Logout";
+import MenuIcon from "@mui/icons-material/Menu";
 import {
   MDBContainer,
   MDBNavbar,
@@ -40,16 +41,18 @@ const Layout = () => {
   const handleMenuClose = () => {
     setAnchorEl(null);
   };
+  let isshow = showShow || window.innerWidth > 768;
   return (
     <>
       <div>
         <MDBCollapse
-          show={showShow.toString()}
+          show={isshow.toString()}
           tag="nav"
-          className="d-lg-block bg-white sidebar"
+          style={{ zIndex: 10 }}
+          className={`${isshow ? "d-block" : "d-none"} bg-white sidebar`}
         >
           <div className="position-sticky">
-            <MDBListGroup flush className="mt-1">
+            <MDBListGroup flush="true" className="">
               <MDBListGroupItem
                 tag="a"
                 onClick={() => navigate("/")}
@@ -119,9 +122,25 @@ const Layout = () => {
             </MDBListGroup>
           </div>
         </MDBCollapse>
-        <MDBNavbar expand="lg" light bgColor="light" className="py-1">
+        <MDBNavbar
+          style={{ position: "sticky", top: 0, zIndex: 10 }}
+          expand="lg"
+          light
+          bgColor="light"
+          className="py-1"
+        >
           <MDBContainer fluid>
-            <h4 className="ps-2">Inventory App</h4>
+            <h4 className="ps-2 d-md-block d-none">Inventory App</h4>
+            <MenuIcon
+              onClick={() => setShowShow(!showShow)}
+              className="d-md-none "
+            />
+            {/* <button
+              onClick={() => setShowShow(!showShow)}
+              className="d-md-none "
+            >
+              toggal
+            </button> */}
             <div className="ms-auto">
               <IconButton
                 aria-label="account of current user"
@@ -170,7 +189,7 @@ const Layout = () => {
             </div>
           </MDBContainer>
         </MDBNavbar>
-        <div className="containerLeft px-3 py-1">
+        <div style={{}} className="containerLeft px-3 py-1">
           <Outlet />
         </div>
       </div>
