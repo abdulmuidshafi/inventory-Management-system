@@ -1,0 +1,45 @@
+.dashboard-card-money-bg {
+  background-color: #f0f4c3; /* Light golden yellow */
+  /* Or choose another color that represents money or costs to you, such as:
+    - #e8f5e9 (light green)
+    - #c5cae9 (light blue)
+    - #e2e3e5 (light gray)
+  */
+}
+/* Highlight key metrics */
+.dashboard-card .card-title {
+  font-size: 1.2rem; /* Slightly larger font for titles */
+  font-weight: bold;
+}
+
+.dashboard-card .card-value {
+  font-size: 1.5rem; /* Larger font for key values */
+  color: #212529; /* Darker color for emphasis */
+}
+
+/* Subtle animations */
+.dashboard-card:hover {
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15); /* Add a shadow on hover */
+  transform: translateY(-2px); /* Slight upward movement */
+}
+
+/* Rounded corners */
+.dashboard-card {
+  border-radius: 15px;
+}
+.beautiful-dropdown {
+  background-color: #f0f0f0; /* Light gray background */
+  border-radius: 5px; /* Soft rounded corners */
+  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+  font-family: 'Open Sans', sans-serif; /* Stylish font */
+}
+
+.beautiful-dropdown .btn-primary {
+  background-color: #007bff; /* Primary blue color */
+  border-color: #007bff;
+}
+
+.beautiful-dropdown .btn-primary:hover {
+  background-color: #0069d9; /* Darker blue on hover */
+  border-color: #0062cc;
+}
