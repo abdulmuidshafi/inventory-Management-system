@@ -1,0 +1,3 @@
+[submodule "inventory-Management-system"]
+	path = inventory-Management-system
+	url = https://github.com/abdulmuidshafi/inventory-Management-system

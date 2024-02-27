@@ -56,9 +56,6 @@ const useStyles = makeStyles({
     // Add further styles for spacing, headers, etc.
   },*/
 });
-
-// Add further styles for spacing, headers, etc.
-
 export const Dashboard = () => {
   const classes = useStyles();
   const currentDate = new Date();

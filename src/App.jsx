@@ -4,6 +4,7 @@ import RootComponent from "./components/RootComponent";
 import RootPage from "./components/RootPage";
 import DataTable from "./test/DataTable";
 import Hello from "./test/Hello";
+import { toast } from "react-toastify";
 // import "../app.css";
 import Sales from "./page/Sales";
 import SaleList from "./sales/SaleList";
@@ -45,20 +46,6 @@ function App() {
     spacing: 4,
     palette: {
       mode: "light",
-
-      // primary: {
-      //   main: "#573BFE",
-      // },
-      // text: {
-      //   primary: "#202635",
-      //   secondary: "#A0AEC0",
-      // },
-      // secondary: {
-      //   main: "#01C0F6",
-      // },
-      // error: {
-      //   main: "#E03137",
-      // },
     },
 
     typography: {
