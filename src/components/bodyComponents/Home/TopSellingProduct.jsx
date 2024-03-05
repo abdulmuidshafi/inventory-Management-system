@@ -1,64 +1,118 @@
-import React from "react";
-import {
-  Box,
-  Table,
-  TableBody,
-  TableCell,
-  TableContainer,
-  TableHead,
-  TableRow,
-  Typography,
-} from "@mui/material";
-export default function TopSellingProduct() {
-  const products = [
-    { name: "ASOS Ridey", price: 25.05, quantity: 73, amount: 1.828 },
-    {
-      name: "Philip Morris International",
-      price: 85.05,
-      quantity: 84,
-      amount: 7.144,
-    },
-    { name: "Donna Karan", price: 96.05, quantity: 94, amount: 9.028 },
-    { name: "Marco Pollo", price: 31.09, quantity: 51, amount: 1.585 },
-    { name: "Dolce Gabbana", price: 27.09, quantity: 78, amount: 2.113 },
-  ];
+import React, { useState, useEffect } from 'react';
+import { Form, Row, Col, Button, Container, Table } from 'react-bootstrap';
+import { format } from "date-fns";
+import AxiosInstance from "./../../../api/AxiosInstance";
+const GenerateSalesReport = () => {
+  const [startDate, setStartDate] = useState('');
+  const [endDate, setEndDate] = useState('');
+  const [salesData, setSalesData] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState(null);
+
+  const handleInputChange = (event) => {
+    const { name, value } = event.target;
+    switch (name) {
+      case 'startDate':
+        setStartDate(value);
+        break;
+      case 'endDate':
+        setEndDate(value);
+        break;
+      default:
+        break;
+    }
+  };
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+
+    if (!startDate || !endDate) {
+      setError('Please provide both start and end dates.');
+      return;
+    }
+
+    setIsLoading(true);
+    setError(null);
+
+    try {
+      const response = await AxiosInstance.post('/sales/report', {
+        startDate,
+        endDate,
+      });
+
+      setSalesData(response.data.sales);
+    } catch (error) {
+      console.error(error);
+      setError('An error occurred. Please try again later.');
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    // Optional: Fetch initial sales data on component mount (if applicable)
+  }, []);
+
   return (
-    <Box
-      sx={{
-        margin: 3,
-        bgcolor: "white",
-        borderRadius: 2,
-        padding: 3,
-        height: "95%",
-      }}
-    >
-      <Typography variant="h6" fontWeight={"bold"} sx={{ mx: 3 }}>
-        Top selling products
-      </Typography>
-      <TableContainer>
-        <Table>
-          <TableHead>
-            <TableRow>
-              <TableCell sx={{ fontWeight: "bolder" }}>Name</TableCell>
-              <TableCell sx={{ fontWeight: "bolder" }}>Price</TableCell>
-              <TableCell sx={{ fontWeight: "bolder" }}>Quantity</TableCell>
-              <TableCell sx={{ fontWeight: "bolder" }}>Amount</TableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {products.map((product, id) => {
-              return (
-                <TableRow key={id}>
-                  <TableCell>{product.name}</TableCell>
-                  <TableCell>{product.price}</TableCell>
-                  <TableCell>{product.quantity}</TableCell>
-                  <TableCell>{product.amount}</TableCell>
-                </TableRow>
-              );
-            })}
-          </TableBody>
+    <Container>
+      <h1>Generate Sales Report</h1>
+      <Form onSubmit={handleSubmit}>
+        <Row>
+          <Col xs={6}>
+            <Form.Group controlId="startDate">
+              <Form.Label>Start Date</Form.Label>
+              <Form.Control
+                type="date"
+                name="startDate"
+                value={startDate}
+                onChange={handleInputChange}
+                required
+              />
+            </Form.Group>
+          </Col>
+          <Col xs={6}>
+            <Form.Group controlId="endDate">
+              <Form.Label>End Date</Form.Label>
+              <Form.Control
+                type="date"
+                name="endDate"
+                value={endDate}
+                onChange={handleInputChange}
+                required
+              />
+            </Form.Group>
+          </Col>
+        </Row>
+        <Button variant="primary" type="submit" disabled={isLoading}>
+          {isLoading ? 'Loading...' : 'Generate Report'}
+        </Button>
+        {error && <p className="text-danger">{error}</p>}
+      </Form>
+
+      {salesData.length > 0 && (
+        <Table striped bordered hover>
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Sale Order Time</th>
+              <th>Seller Name</th>
+              {/* Add other relevant columns as needed */}
+            </tr>
+          </thead>
+          <tbody>
+            {salesData.map((sale, index) => (
+              <tr key={index}>
+                <td>{index + 1}</td>
+                <td>{sale.saleOrderTime}</td>
+                <td>{sale.seller.name}</td>
+                {/* Add cells for other data based on your API response structure */}
+              </tr>
+            ))}
+          </tbody>
         </Table>
-      </TableContainer>
-    </Box>
+      )}
+    </Container>
   );
-}
+};
+
+export default GenerateSalesReport;

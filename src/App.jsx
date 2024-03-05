@@ -2,10 +2,6 @@ import Inter from "../public/static/fonts/Inter.ttf";
 import { ThemeProvider, CssBaseline, createTheme, Box } from "@mui/material";
 import RootComponent from "./components/RootComponent";
 import RootPage from "./components/RootPage";
-import DataTable from "./test/DataTable";
-import Hello from "./test/Hello";
-import { toast } from "react-toastify";
-// import "../app.css";
 import Sales from "./page/Sales";
 import SaleList from "./sales/SaleList";
 import AddSale from "./sales/AddSale";
@@ -18,6 +14,7 @@ import {
   createRoutesFromElements,
   RouterProvider,
 } from "react-router-dom";
+import { ToastContainer } from 'react-toastify';
 import ProtectedRoute from "../ProtectedRoute";
 import Home from "./components/bodyComponents/home/Home";
 import Revenue from "./components/bodyComponents/revenue/Revenue";
@@ -47,25 +44,23 @@ function App() {
     palette: {
       mode: "light",
     },
-
     typography: {
       fontFamily: "Inter",
     },
     components: {
       MuiCssBaseline: {
         styleOverrides: `
-          @font-face {
-            font-family: 'Inter';
-            font-style: normal;
-            font-display: swap;
-            font-weight: 400;
-            src: local('Raleway'), local('Raleway-Regular'), url(${Inter}) format('woff2');
-            unicodeRange: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF;
-          }
-        `,
+     @font-face {
+      font-family: 'Inter';
+      font-style: normal;
+      font-display: swap;
+      font-weight: 400;
+      src: local('Raleway'), local('Raleway-Regular'), url(${Inter}) format('woff2')
+      unicodeRange: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF;
+     }
+    `,
       },
     },
-    //here we customize our typographi and in the variant prop we can use out myVar value
   });
   const router = createBrowserRouter(
     createRoutesFromElements(
@@ -91,7 +86,6 @@ function App() {
               <Route index element={<PurchaseList />} />
               <Route path="add" element={<AddPurchase />} />
             </Route>
-
             <Route path="profile" element={<SettingsPage />}>
               <Route path="changepassword" element={<ChangePasswordForm />} />
               <Route path="edit" element={<EditProfileForm />} />
@@ -101,7 +95,6 @@ function App() {
               <Route path="add" element={<AddSupplier />} />
               <Route path="edit/:suppliersId" element={<EditSupplier />} />
             </Route>
-
             <Route path="sales" element={<Sales />}>
               <Route index element={<SaleList />} />
               <Route path="add" element={<AddSale />} />
@@ -114,13 +107,23 @@ function App() {
       </>
     )
   );
-
   return (
     <ThemeProvider theme={theme}>
       <RouterProvider router={router} />
       <CssBaseline />
+      < ToastContainer style={{
+        position: "top-right",
+        autoClose: 1000, // In milliseconds
+        hideProgressBar: false,
+        newestOnTop: false,
+        closeOnClick: true,
+        rtl: false,
+        pauseOnFocusLoss: true,
+        draggable: true,
+        pauseOnHover: true,
+        theme: "light",
+      }} />
     </ThemeProvider>
   );
 }
-
 export default App;

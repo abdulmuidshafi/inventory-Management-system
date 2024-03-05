@@ -130,6 +130,8 @@ const SaleList = () => {
       invoiceFormRef.current.querySelector(".invoice-content");
     printRef({ content: () => invoiceContent });
   };
+
+
   return (
     <div className="p-2">
       <Card className="mb-3 shadow-sm">
@@ -248,7 +250,7 @@ const SaleList = () => {
                       <button
                         className="btn-sccuss"
                         onClick={callChilfFunction}
-                        // key={[sale._id,sale.customer_name,Math.random(10000)]}
+                      // key={[sale._id,sale.customer_name,Math.random(10000)]}
                       >
                         Print
                       </button>
