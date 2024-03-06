@@ -15,10 +15,10 @@ const AddPurchase = () => {
   const [products, setProducts] = useState([]);
   const [suppliers, setSuppliers] = useState([]);
   const [formData, setFormData] = useState({
-    product: "",
-    supplier: "",
-    unit_price: null,
-    quantity: null,
+    product_id: '',
+    supplier_id: '',
+    unit_price: '', // Update: Initialize with an empty string instead of null
+    quantity: '', // Update: Initialize with an empty string instead of null
   });
   const navigate = useNavigate();
   useEffect(() => {

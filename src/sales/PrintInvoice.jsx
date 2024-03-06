@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 import React, { forwardRef, useImperativeHandle } from "react";
 import { useRef, useState } from "react";
 import { Card, Button } from "react-bootstrap";
@@ -6,19 +5,11 @@ import { useReactToPrint } from "react-to-print";
 import { format } from "date-fns";
 import numWords from "num-words";
 import pic from "./photo_2024-02-17_23-16-23.jpg";
-=======
-import React, { forwardRef, useImperativeHandle } from 'react';
-import { useRef, useState } from 'react';
-import { Card, Button } from 'react-bootstrap';
-import { useReactToPrint } from 'react-to-print';
-import { format } from 'date-fns';
->>>>>>> fb44f3c374b42f5e8dde268f5719bfc6da22ed68
 
 const PrintInvoiceForm = forwardRef((props, ref) => {
   const componentRef = useRef();
   const printData = useReactToPrint({
     content: () => componentRef.current,
-<<<<<<< HEAD
     documentTitle: "Invoice",
   });
 
@@ -34,21 +25,6 @@ const PrintInvoiceForm = forwardRef((props, ref) => {
       ...prevData,
       [name]: value,
     }));
-=======
-    documentTitle: 'Invoice',
-  });
-  React.useImperativeHandle(ref, () => ({
-    printData,
-  }));
-
-  const [invoiceFormData, setInvoiceFormData] = useState(props.selectedSale); // Initialize with selected sale data
-
-  const handleFormChange = (event) => {
-    setInvoiceFormData({
-      ...invoiceFormData,
-      [event.target.name]: event.target.value,
-    });
->>>>>>> fb44f3c374b42f5e8dde268f5719bfc6da22ed68
   };
 
   const handleSubmit = (event) => {
@@ -57,7 +33,6 @@ const PrintInvoiceForm = forwardRef((props, ref) => {
   };
 
   const calculateTotal = (items) => {
-<<<<<<< HEAD
     return items.reduce(
       (total, item) => total + item.product.price * item.quantity,
       0
@@ -72,24 +47,16 @@ const PrintInvoiceForm = forwardRef((props, ref) => {
 
   const totalAmountInWords = (amount) => {
     return numWords(amount, { case: "title" });
-=======
-    let total = items.reduce((accumulator, item) => accumulator + item.product.price * item.quantity, 0);
-    return total;
->>>>>>> fb44f3c374b42f5e8dde268f5719bfc6da22ed68
   };
 
   return (
     <div>
       <Card className="invoice-card" ref={componentRef}>
-<<<<<<< HEAD
         <Card.Header className="bg-primary text-white">
           <img src={pic} className="circle" alt="Company Logo" width="100" />
           <h3>Invoice</h3>
         </Card.Header>
 
-=======
-        <Card.Header>Invoice</Card.Header>
->>>>>>> fb44f3c374b42f5e8dde268f5719bfc6da22ed68
         <Card.Body>
           <form className="invoice-form" onSubmit={handleSubmit}>
             <div className="invoice-header">
@@ -102,13 +69,9 @@ const PrintInvoiceForm = forwardRef((props, ref) => {
                 </div>
                 <div>
                   <p>Invoice Number: {invoiceFormData._id}</p>
-<<<<<<< HEAD
                   <p>
                     Date: {format(invoiceFormData.saleOrderTime, "MM/dd/yyyy")}
                   </p>
-=======
-                  <p>Date: {format(invoiceFormData.saleOrderTime, 'MM/dd/yyyy')}</p>
->>>>>>> fb44f3c374b42f5e8dde268f5719bfc6da22ed68
                 </div>
               </div>
             </div>
@@ -141,45 +104,29 @@ const PrintInvoiceForm = forwardRef((props, ref) => {
               <table className="table table-bordered">
                 <thead>
                   <tr>
-<<<<<<< HEAD
                     <th>No</th>
-=======
->>>>>>> fb44f3c374b42f5e8dde268f5719bfc6da22ed68
                     <th>Product Name</th>
                     <th>Quantity</th>
                     <th>Unit Price</th>
                     <th>Total Price</th>
                   </tr>
-<<<<<<< HEAD
                 </thead>
                 <tbody>
                   {invoiceFormData.items.map((item, index) => (
                     <tr key={item._id}>
                       <td>{index + 1}</td>
-=======
-                </thead> 
-                <tbody>
-                  {invoiceFormData.items.map((item) => (
-                    <tr key={item._id}>
->>>>>>> fb44f3c374b42f5e8dde268f5719bfc6da22ed68
                       <td>{item.product.name}</td>
                       <td>{item.quantity}</td>
                       <td>${item.product.price}</td>
                       <td>${item.product.price * item.quantity}</td>
                     </tr>
                   ))}
-<<<<<<< HEAD
                 </tbody>
-=======
-                </tbody> 
-
->>>>>>> fb44f3c374b42f5e8dde268f5719bfc6da22ed68
               </table>
               <hr />
               <div className="invoice-summary">
                 <p>Subtotal: ${calculateTotal(invoiceFormData.items)}</p>
                 {/* Add additional charges if needed (e.g., tax) */}
-<<<<<<< HEAD
                 <p>
                   VAT (0%): $
                   {calculateTotalWithVAT(invoiceFormData.items) -
@@ -192,10 +139,6 @@ const PrintInvoiceForm = forwardRef((props, ref) => {
                     calculateTotalWithVAT(invoiceFormData.items)
                   )}
                 </p>
-=======
-                <p>Total: ${calculateTotal(invoiceFormData.items)}</p>
- 
->>>>>>> fb44f3c374b42f5e8dde268f5719bfc6da22ed68
               </div>
             </div>
           </form>

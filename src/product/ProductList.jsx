@@ -31,24 +31,6 @@ const ProductList = () => {
     }
   };
 
-<<<<<<< HEAD
-=======
-  /* const handleDelete = async (productId) => {
-    try {
-      await AxiosInstance.delete(`/products/${productId}`);
-      // Handle successful deletion
-      // e.g., show success message, update product list, etc.
-      fetchProducts();
-    } catch (error) {
-      console.error(error);
-      // Handle error
-    } finally {
-      // This code will always run, regardless of success or error
-      // You can use it to do cleanup tasks, like hiding progress indicators
-    }
-  };*/
-
->>>>>>> fb44f3c374b42f5e8dde268f5719bfc6da22ed68
   const handleSearch = (e) => {
     e.preventDefault();
     setCurrentPage(1); // Reset to the first page when performing a new search
@@ -66,18 +48,11 @@ const ProductList = () => {
       setCurrentPage(currentPage - 1);
     }
   };
-<<<<<<< HEAD
   const filteredProducts = Array.isArray(products)
     ? products.filter((product) =>
         product.name.toLowerCase().includes(searchName.toLowerCase())
       )
     : [];
-=======
-
-  const filteredProducts = products.filter((product) =>
-    product.name.toLowerCase().includes(searchName.toLowerCase())
-  );
->>>>>>> fb44f3c374b42f5e8dde268f5719bfc6da22ed68
 
   const totalPages = Math.ceil(filteredProducts.length / pageSize);
 
