@@ -44,6 +44,7 @@ const useStyles = makeStyles({
     fontSize: "1.5rem",
     color: "#4285f4", // Blue icon color
   },
+<<<<<<< HEAD
 
   /*card: {
     marginBottom: 10,
@@ -56,10 +57,16 @@ const useStyles = makeStyles({
     // Add further styles for spacing, headers, etc.
   },*/
 });
+=======
+  // Add further styles for spacing, headers, etc.
+});
+
+>>>>>>> fb44f3c374b42f5e8dde268f5719bfc6da22ed68
 export const Dashboard = () => {
   const classes = useStyles();
   const currentDate = new Date();
   const period = currentDate.getDay() === 0 ? "Weekly" : "Monthly"; // Example logic
+<<<<<<< HEAD
   const [dailySales, setDailySales] = useState();
   const [weeklySales, setWeeklySales] = useState();
   const [monthlySales, setMonthlySales] = useState();
@@ -88,10 +95,62 @@ export const Dashboard = () => {
   };
   const fetchWeeklySales = () => {
     AxiosInstance.get(`/sales/weekly`)
+=======
+
+  const [dailySales, setDailySales] = useState();
+
+  const [weeklySales, setWeeklySales] = useState();
+
+  const [monthlySales, setMonthlySales] = useState();
+
+  const [amountDaily, setAmountDaily] = useState({});
+
+  const [amountWeekly, setAmountWeekly] = useState({});
+
+  const [amountMonthly, setAmountMonthly] = useState({});
+
+  const [products, setProducts] = useState({});
+  useEffect(() => {
+    fetchDailySales();
+
+    fetchProductsData();
+
+    fetchMonthlySales();
+
+    fetchWeeklySales();
+
+    fetchAmountDaily();
+
+    fetchAmountWeekly();
+
+    fetchAmountMonthly();
+  }, []);
+
+  const fetchDailySales = () => {
+    AxiosInstance.get(`/sales/daily/`)
+
+      .then((response) => setDailySales(response.data))
+
+      .catch((error) => console.log(error));
+  };
+
+  const fetchAmountDaily = () => {
+    AxiosInstance.get(`/sales/amount/daily/`)
+
+      .then((response) => setAmountDaily(response.data))
+
+      .catch((error) => console.log(error));
+  };
+
+  const fetchWeeklySales = () => {
+    AxiosInstance.get(`/sales/weekly`)
+
+>>>>>>> fb44f3c374b42f5e8dde268f5719bfc6da22ed68
       .then((response) => setWeeklySales(response.data))
 
       .catch((error) => console.log(error));
   };
+<<<<<<< HEAD
   const fetchMonthlySales = () => {
     AxiosInstance.get(`/sales/monthly`)
       .then((response) => setMonthlySales(response.data))
@@ -110,6 +169,38 @@ export const Dashboard = () => {
   const fetchProductsData = () => {
     AxiosInstance.get(`/products/dashboard`)
       .then((response) => setProducts(response.data))
+=======
+
+  const fetchMonthlySales = () => {
+    AxiosInstance.get(`/sales/monthly`)
+
+      .then((response) => setMonthlySales(response.data))
+
+      .catch((error) => console.log(error));
+  };
+
+  const fetchAmountWeekly = () => {
+    AxiosInstance.get("/sales/total-by-weekly")
+
+      .then((response) => setAmountWeekly(response.data))
+
+      .catch((error) => console.log(error));
+  };
+
+  const fetchAmountMonthly = () => {
+    AxiosInstance.get("/sales/total-by-month")
+
+      .then((response) => setAmountMonthly(response.data))
+
+      .catch((error) => console.log(error));
+  };
+
+  const fetchProductsData = () => {
+    AxiosInstance.get(`/products/dashboard`)
+
+      .then((response) => setProducts(response.data))
+
+>>>>>>> fb44f3c374b42f5e8dde268f5719bfc6da22ed68
       .catch((error) => console.log(error));
   };
   return (
@@ -140,6 +231,7 @@ export const Dashboard = () => {
           </Card>
         </Grid>
         <Grid item xs={12} md={3}>
+<<<<<<< HEAD
           <Card className={classes.card} style={{ backgroundColor: "#8BC34A" }}>
             <CardActionArea>
               <CardContent>
@@ -158,12 +250,35 @@ export const Dashboard = () => {
                   style={{ color: "#ddd" }}
                 >
                   {dailySales?.sales}
+=======
+          <Card
+            className={classes.card}
+            style={{
+              backgroundImage: "linear-gradient(to bottom, #f5f5f5, #e0e0e0)",
+            }}
+          >
+            <CardActionArea>
+              <CardContent>
+                <div className={classes.cardIcon} aria-label="People Icon">
+                  <i
+                    className="bi bi-calendar-week"
+                    style={{ color: "#4285f4" }}
+                  ></i>
+                </div>
+                <Typography variant="h6">
+                  Number of People Bought Weekly {period}
+                </Typography>
+                <Typography className={classes.cardValue}></Typography>
+                <Typography className={classes.cardAnnotation}>
+                  {weeklySales?.sales}
+>>>>>>> fb44f3c374b42f5e8dde268f5719bfc6da22ed68
                 </Typography>
               </CardContent>
             </CardActionArea>
           </Card>
         </Grid>
         <Grid item xs={12} md={3}>
+<<<<<<< HEAD
           <Card className={classes.card} style={{ backgroundColor: "#8BC34A" }}>
             <CardActionArea>
               <CardContent>
@@ -182,12 +297,30 @@ export const Dashboard = () => {
                   style={{ color: "#ddd" }}
                 >
                   {dailySales?.sales}
+=======
+          <Card className={classes.card}>
+            <CardActionArea>
+              <CardContent>
+                <div className={classes.cardIcon} aria-label="People Icon">
+                  <i className="bi bi-calendar-month"></i>
+                </div>
+                <Typography variant="h6">
+                  Number of People Bought Monthly
+                </Typography>
+                <Typography className={classes.cardValue}></Typography>
+                <Typography className={classes.cardAnnotation}>
+                  {monthlySales?.sales}
+>>>>>>> fb44f3c374b42f5e8dde268f5719bfc6da22ed68
                 </Typography>
               </CardContent>
             </CardActionArea>
           </Card>
+<<<<<<< HEAD
         </Grid>{" "}
         <br />
+=======
+        </Grid>
+>>>>>>> fb44f3c374b42f5e8dde268f5719bfc6da22ed68
         <Grid item xs={12} md={3}>
           <Card
             className={classes.card}
@@ -225,6 +358,10 @@ export const Dashboard = () => {
             </CardActionArea>
           </Card>
         </Grid>
+<<<<<<< HEAD
+=======
+
+>>>>>>> fb44f3c374b42f5e8dde268f5719bfc6da22ed68
         <Grid item xs={12} md={3}>
           <Card
             className={classes.card}
@@ -312,6 +449,10 @@ export const Dashboard = () => {
             </CardActionArea>
           </Card>
         </Grid>
+<<<<<<< HEAD
+=======
+
+>>>>>>> fb44f3c374b42f5e8dde268f5719bfc6da22ed68
         <Grid item xs={12} md={3}>
           <Card
             className={classes.card}

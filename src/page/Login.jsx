@@ -32,7 +32,11 @@ const Login = () => {
       setPassword("");
     } catch (error) {
       // Handle the login error
+<<<<<<< HEAD
       toast.error("Login error:", error);
+=======
+      console.error("Login error:", error);
+>>>>>>> fb44f3c374b42f5e8dde268f5719bfc6da22ed68
       // setError(error?.response?.data.message);
       toast.error(error?.response?.data.message);
     }

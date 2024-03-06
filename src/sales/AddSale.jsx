@@ -42,6 +42,20 @@ const AddSale = () => {
       });
   };
 
+<<<<<<< HEAD
+=======
+  // const fetchSeller = () => {
+  //   AxiosInstance.get("/seller")
+  //     .then((response) => response.data)
+  //     .then((data) => {
+  //       setSellerInfo(data);
+  //     })
+  //     .catch((error) => {
+  //       console.error("Error fetching seller information:", error);
+  //     });
+  // };
+
+>>>>>>> fb44f3c374b42f5e8dde268f5719bfc6da22ed68
   const handleInputChange = (event) => {
     setFormData({
       ...formData,

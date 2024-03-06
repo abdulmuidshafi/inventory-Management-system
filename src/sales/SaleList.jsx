@@ -9,7 +9,10 @@ import {
   FormControl,
   Alert,
   Badge,
+<<<<<<< HEAD
   Pagination,
+=======
+>>>>>>> fb44f3c374b42f5e8dde268f5719bfc6da22ed68
 } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import AxiosInstance from "../api/AxiosInstance";
@@ -21,16 +24,27 @@ const SaleList = () => {
   const [searchName, setSearchName] = useState("");
   const [showAlert, setShowAlert] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
+<<<<<<< HEAD
   const [pageSize, setPageSize] = useState(2);
   const invoiceFormRef = useRef(null);
   const navigate = useNavigate();
   useEffect(() => {
     fetchSales();
   }, []);
+=======
+  const invoiceFormRef = useRef(null);
+  const navigate = useNavigate();
+  // console.log(sales);
+  useEffect(() => {
+    fetchSales();
+  }, []);
+  // console.log(selectedToPrint);
+>>>>>>> fb44f3c374b42f5e8dde268f5719bfc6da22ed68
   const fetchSales = () => {
     AxiosInstance.get("/sales")
       .then((response) => response.data)
       .then((data) => {
+<<<<<<< HEAD
         const filteredSales = filterSalesByCustomerName(data);
         if (filteredSales.length === 0) {
           setShowAlert(true);
@@ -39,11 +53,15 @@ const SaleList = () => {
           setShowAlert(false);
         }
         setSales(filteredSales);
+=======
+        setSales(data);
+>>>>>>> fb44f3c374b42f5e8dde268f5719bfc6da22ed68
       })
       .catch((error) => {
         console.error("Error fetching sales:", error);
       });
   };
+<<<<<<< HEAD
 
   const filterSalesByCustomerName = (data) => {
     return data.filter((sale) =>
@@ -70,6 +88,22 @@ const SaleList = () => {
   const handleSearch = (e) => {
     e.preventDefault();
     fetchSales();
+=======
+  let startIndex = (currentPage - 1) * 2;
+  let endIndex = currentPage * 2;
+  // console.log(sales);
+  const filterSalesByCustomerName = () => {
+    const filteredSales = sales.filter((sale) =>
+      sale.customer_name.toLowerCase().includes(searchName.toLowerCase())
+    );
+    return filteredSales;
+  };
+  // console.log(sales);
+  const handleSearch = (e) => {
+    e.preventDefault();
+    const filteredSales = filterSalesByCustomerName();
+    setSales(filteredSales);
+>>>>>>> fb44f3c374b42f5e8dde268f5719bfc6da22ed68
   };
 
   const calculateTotal = (items) => {
@@ -86,6 +120,11 @@ const SaleList = () => {
       if (sale.status === "complete") {
         setShowAlert(true);
       } else {
+<<<<<<< HEAD
+=======
+        // Implement your logic here to confirm the payment for the given saleId
+        // You can make an API call or update the payment status in the database
+>>>>>>> fb44f3c374b42f5e8dde268f5719bfc6da22ed68
         try {
           AxiosInstance.post(`/sales/${saleId}/confirmsale`);
           const updatedSales = sales.map((sale) => {
@@ -99,6 +138,11 @@ const SaleList = () => {
         } catch (error) {
           alert("unable to confirm");
         }
+<<<<<<< HEAD
+=======
+
+        // For example, you can update the payment status directly in the state
+>>>>>>> fb44f3c374b42f5e8dde268f5719bfc6da22ed68
       }
     }
   };
@@ -109,6 +153,12 @@ const SaleList = () => {
       if (sale.status === "complete") {
         setShowAlert(true);
       } else {
+<<<<<<< HEAD
+=======
+        // Implement your logic here to handle returning the product for the given saleId
+
+        // For example, you can make an API call or update the product status in the database
+>>>>>>> fb44f3c374b42f5e8dde268f5719bfc6da22ed68
         try {
           AxiosInstance.post(`/sales/${saleId}/returnsale`);
           const updatedSales = sales.filter((sale) => sale._id !== saleId);
@@ -116,22 +166,44 @@ const SaleList = () => {
         } catch (error) {
           alert("unable to return");
         }
+<<<<<<< HEAD
       }
     }
   };
+=======
+
+        // After handling the return, you can remove the sale from the state
+        //
+      }
+    }
+  };
+  // const printRef = useReactToPrint({
+  //   content: () => document.getElementById(selectedToPrint),
+  // });
+  // const handlePrint = useReactToPrint({
+  //   content: () => componentRef.current
+  // });
+>>>>>>> fb44f3c374b42f5e8dde268f5719bfc6da22ed68
   const childRef = useRef(null);
   const callChilfFunction = () => {
     if (childRef.current) {
       childRef.current.printData();
     }
   };
+<<<<<<< HEAD
+=======
+  // console.log(sales);
+>>>>>>> fb44f3c374b42f5e8dde268f5719bfc6da22ed68
   const handlePrintInvoice = () => {
     const invoiceContent =
       invoiceFormRef.current.querySelector(".invoice-content");
     printRef({ content: () => invoiceContent });
   };
+<<<<<<< HEAD
 
 
+=======
+>>>>>>> fb44f3c374b42f5e8dde268f5719bfc6da22ed68
   return (
     <div className="p-2">
       <Card className="mb-3 shadow-sm">
@@ -142,7 +214,11 @@ const SaleList = () => {
               variant="outline-primary"
               className="me-2 text-nowrap"
             >
+<<<<<<< HEAD
               Add Sale
+=======
+              {/*<BsPlusCircleFill />*/} Add Sale
+>>>>>>> fb44f3c374b42f5e8dde268f5719bfc6da22ed68
             </Button>
             <Form onSubmit={handleSearch} className="d-flex align-items-center">
               <FormControl
@@ -151,7 +227,11 @@ const SaleList = () => {
                 onChange={(e) => setSearchName(e.target.value)}
               />
               <Button variant="primary" type="submit">
+<<<<<<< HEAD
                 Search
+=======
+                {/*<BsSearchFill />*/} Search
+>>>>>>> fb44f3c374b42f5e8dde268f5719bfc6da22ed68
               </Button>
             </Form>
           </div>
@@ -161,7 +241,11 @@ const SaleList = () => {
               onClose={() => setShowAlert(false)}
               dismissible
             >
+<<<<<<< HEAD
               No customer found with that name. Redirecting back to sales list.
+=======
+              This action cannot be performed on a paid sale.
+>>>>>>> fb44f3c374b42f5e8dde268f5719bfc6da22ed68
             </Alert>
           )}
           <div id="print-content">
@@ -187,6 +271,7 @@ const SaleList = () => {
                 </tr>
               </thead>
               <tbody>
+<<<<<<< HEAD
                 {filteredSalesOnPage.map((sale, index) => (
                   <tr
                     key={sale._id}
@@ -281,6 +366,90 @@ const SaleList = () => {
                 onClick={handleNextPage}
               />
             </Pagination>
+=======
+                {filterSalesByCustomerName()
+                  .slice(startIndex, endIndex)
+                  .map((sale, index) => (
+                    <tr key={sale._id} id={`printcontent${index}`}>
+                      <td>{index + 1}</td>
+                      <td>{sale.saleOrderTime}</td>
+                      <td>
+                        {sale.status === "complete" ? (
+                          <Badge pill bg="success">
+                            Paid
+                          </Badge>
+                        ) : (
+                          <Button
+                            variant="outline-primary"
+                            size="sm"
+                            onClick={() => confirmPayment(sale._id)}
+                          >
+                            Confirm Payment
+                          </Button>
+                        )}
+                      </td>
+                      <td>{sale?.seller?.name}</td>
+                      <td>
+                        <ul className="mb-0">
+                          {sale.items.map((item) => (
+                            <li key={item._id}>
+                              {item.product.name} - {item.quantity}
+                            </li>
+                          ))}
+                        </ul>
+                      </td>
+                      <td>{sale?.subtotal}</td>
+                      <td>{calculateTotal(sale.items)}</td>
+                      <td>{sale.customer_name}</td>
+                      <td>{sale.customer_TIN}</td>
+                      <td>
+                        {sale.status !== "complete" && (
+                          <Button
+                            variant="outline-danger"
+                            size="sm"
+                            onClick={() => returnProduct(sale._id)}
+                          >
+                            Return Product
+                          </Button>
+                        )}
+                      </td>
+                      <td>
+                        <div className="d-none">
+                          <PrintInvoice
+                            key={[
+                              sale._id,
+                              sale.customer_name,
+                              Math.random(10000),
+                            ]}
+                            selectedSale={sale}
+                            ref={childRef}
+                          />
+                        </div>
+                        <button
+                          className="btn-sccuss"
+                          onClick={callChilfFunction}
+                          // key={[sale._id,sale.customer_name,Math.random(10000)]}
+                        >
+                          Print
+                        </button>
+                      </td>
+                    </tr>
+                  ))}
+              </tbody>
+            </Table>
+            <button
+              disabled={currentPage === 1}
+              onClick={() => setCurrentPage(currentPage - 1)}
+            >
+              pre
+            </button>
+            <button
+              disabled={currentPage === Math.ceil(sales.length / 2)}
+              onClick={() => setCurrentPage(currentPage + 1)}
+            >
+              next
+            </button>
+>>>>>>> fb44f3c374b42f5e8dde268f5719bfc6da22ed68
           </div>
         </Card.Body>
       </Card>
