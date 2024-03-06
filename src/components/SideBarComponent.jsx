@@ -1,5 +1,4 @@
-import React, { useState } from "react";
-import "../../public/styles/links.css";
+import React, { useState } from "react"; 
 import {
   List,
   ListItem,
@@ -7,10 +6,7 @@ import {
   ListItemText,
   ListItemButton,
   IconButton,
-  Box,
-  Snackbar,
-  Alert,
-  Button,
+  Box, 
 } from "@mui/material";
 import {
   HomeOutlined,
@@ -22,20 +18,15 @@ import {
   TrendingUpOutlined,
   PeopleAltOutlined,
 } from "@mui/icons-material";
-import { Link, NavLink, useLocation, useNavigate } from "react-router-dom";
-
+import {  useLocation, useNavigate } from "react-router-dom";
 export default function SideBarComponent() {
-  const navigate = useNavigate();
-  const [showShow, setShowShow] = useState(false);
+  const navigate = useNavigate(); 
   const user = JSON.parse(localStorage.getItem("token"));
-
   const navigateTo = (to) => {
     navigate(to);
   };
   const location = useLocation();
-  const currentPage = location.pathname;
-  // console.log(currentPage);
-
+  const currentPage = location.pathname; 
   const sideBarComponent = [
     {
       title: "Home",
@@ -55,7 +46,7 @@ export default function SideBarComponent() {
     {
       title: "User",
       component: <PeopleAltOutlined fontSize="medium" color="primary" />,
-      roles: ["admin", "seller"],
+      roles: ["admin" ],
     },
     {
       title: "Revenue",
@@ -72,9 +63,7 @@ export default function SideBarComponent() {
       component: (
         <DescriptionOutlined
           fontSize="medium"
-          color="primary"
-          // Remove unnecessary action attribute
-          // active={location.pathname.includes("sales")}
+          color="primary" 
           className="border-0 border-bottom rounded bi bi-cart4 me-2"
         />
       ),

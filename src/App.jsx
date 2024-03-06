@@ -1,5 +1,4 @@
-import Inter from "../public/static/fonts/Inter.ttf";
-import { ThemeProvider, CssBaseline, createTheme, Box } from "@mui/material";
+import { ThemeProvider, CssBaseline, createTheme } from "@mui/material";
 import RootComponent from "./components/RootComponent";
 import RootPage from "./components/RootPage";
 import Sales from "./page/Sales";
@@ -13,8 +12,7 @@ import {
   createBrowserRouter,
   createRoutesFromElements,
   RouterProvider,
-} from "react-router-dom";
-import {toast} from "react-toastify"
+} from "react-router-dom"; 
 import { ToastContainer } from 'react-toastify';
 import ProtectedRoute from "../ProtectedRoute";
 import Home from "./components/bodyComponents/home/Home";
@@ -55,8 +53,7 @@ function App() {
       font-family: 'Inter';
       font-style: normal;
       font-display: swap;
-      font-weight: 400;
-      src: local('Raleway'), local('Raleway-Regular'), url(${Inter}) format('woff2')
+      font-weight: 400; 
       unicodeRange: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF;
      }
     `,

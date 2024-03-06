@@ -19,11 +19,9 @@ import {
   Settings,
   Logout,
   AccountCircleOutlined,
-} from "@mui/icons-material";
-import { Button } from "react-bootstrap";
+} from "@mui/icons-material"; 
 import { useState } from "react";
-import { Outlet, Link, useLocation } from "react-router-dom";
-//import "./styles.css";
+import { Outlet, Link, useLocation } from "react-router-dom"; 
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import EditIcon from "@mui/icons-material/Edit";
 import KeyIcon from "@mui/icons-material/VpnKey";
@@ -35,20 +33,13 @@ export default function NavBarComponent() {
   const [anchorEl, setAnchorEl] = useState(null);
   // handleNotificationClicked
   const [showShow, setShowShow] = useState(false);
-  const toggleShow = () => setShowShow(!showShow);
-  const navigate = useNavigate();
-  const location = useLocation();
+  const toggleShow = () => setShowShow(!showShow); 
+  const navigate = useNavigate(); 
   const user = JSON.parse(localStorage.getItem("token"));
-
   const handleLogout = () => {
     localStorage.removeItem("token");
     navigate("/login");
-  };
-
-  const handleMenuOpen = (event) => {
-    setAnchorEl(event.currentTarget);
-  };
-
+  }; 
   const open = Boolean(anchorEl);
   const notificationOpen = Boolean(notificationAnchorEl);
   const handleAvatarClicked = (event) => {
