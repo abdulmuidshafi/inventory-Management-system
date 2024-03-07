@@ -4,7 +4,7 @@ import TotalSales from "./TotalSales";
 import SalesByCity from "./SalesByCity";
 import Channels from "./Channels";
 import TopSellingProduct from "./TopSellingProduct";
-import AxiosInstance from "../../../api/AxiosInstance";
+import AxiosInstance from "../api/AxiosInstance";
 import { Typography, Card, CardContent, CardActionArea } from "@mui/material";
 import { makeStyles } from "@mui/styles"; 
 const useStyles = makeStyles({
@@ -307,7 +307,7 @@ const Dashboard = () => {
       </Grid>
       <Grid item xs={12} md={6}>
         <TotalSales dailySales={dailySales} />
-      </Grid>
+      </Grid> 
       <Grid item xs={12} md={6}>
         <SalesByCity />
       </Grid>

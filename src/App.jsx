@@ -35,7 +35,7 @@ import UpdateUser from "./users/UpdateUser";
 import SettingsPage from "./page/SettingsPage";
 import ChangePasswordForm from "./profiles/ChangePasswordForm";
 import EditProfileForm from "./profiles/EditProfileForm";
-
+import Dashboard from "./home/Dashboard";
 function App() {
   const theme = createTheme({
     spacing: 4,
@@ -66,6 +66,7 @@ function App() {
         <Route element={<ProtectedRoute />}>
           <Route path="/" element={<RootComponent />}> 
             <Route path="/revenue" element={<Revenue />} />
+            <Route path="/dashboard" element={<Dashboard />} />
             <Route path="/growth" element={<Growth />} />
             <Route path="products" element={<Products />}>
               <Route index element={<ProductList />} />
