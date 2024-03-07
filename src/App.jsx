@@ -15,7 +15,7 @@ import {
 } from "react-router-dom";
 import { ToastContainer } from 'react-toastify';
 import ProtectedRoute from "../ProtectedRoute";
-import Home from "./components/bodyComponents/home/Home";
+import Dashboard from "./components/bodyComponents/home/Dashboard";
 import Revenue from "./components/bodyComponents/revenue/Revenue";
 import Growth from "./components/bodyComponents/growth/Growth";
 import Products from "./page/Products";
@@ -66,7 +66,7 @@ function App() {
       <>
         <Route element={<ProtectedRoute />}>
           <Route path="/" element={<RootComponent />}>
-            <Route path="/Dashboard" element={<Home />} />
+            <Route path="/dashboard" element={<Dashboard />} />
             <Route path="/revenue" element={<Revenue />} />
             <Route path="/growth" element={<Growth />} />
             <Route path="products" element={<Products />}>

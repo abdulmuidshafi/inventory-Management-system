@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Form, Row, Col, Button, Container, Table } from 'react-bootstrap';
 import { format } from "date-fns";
-import AxiosInstance from "./../../../api/AxiosInstance";
+import AxiosInstance from "../../../api/AxiosInstance";
 const TopSellingProduct = () => {
   const [startDate, setStartDate] = useState('');
   const [endDate, setEndDate] = useState('');

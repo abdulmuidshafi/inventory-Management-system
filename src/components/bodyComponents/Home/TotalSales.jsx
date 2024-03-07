@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import ApexCharts from "react-apexcharts";
 import { makeStyles } from "@mui/styles";
 import { Box, Typography } from "@mui/material";
-import AxiosInstance from "./../../../api/AxiosInstance";
+import AxiosInstance from "../../../api/AxiosInstance";
 
 const useStyles = makeStyles((theme) => ({
   container: {

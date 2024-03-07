@@ -1,18 +1,12 @@
 import React, { useState, useEffect } from "react";
-import { Box, Grid } from "@mui/material";
-import UilReceipt from "@iconscout/react-unicons/icons/uil-receipt";
-import UilBox from "@iconscout/react-unicons/icons/uil-box";
-import UilTruck from "@iconscout/react-unicons/icons/uil-truck";
-import UilCheckCircle from "@iconscout/react-unicons/icons/uil-check-circle"; 
+import {  Grid } from "@mui/material"; 
 import TotalSales from "./TotalSales";
 import SalesByCity from "./SalesByCity";
 import Channels from "./Channels";
 import TopSellingProduct from "./TopSellingProduct";
-import AxiosInstance from "./../../../api/AxiosInstance";
+import AxiosInstance from "../../../api/AxiosInstance";
 import { Typography, Card, CardContent, CardActionArea } from "@mui/material";
-import { makeStyles } from "@mui/styles";
-import { ApexChart } from "react-apexcharts";
-
+import { makeStyles } from "@mui/styles"; 
 const useStyles = makeStyles({
   card: {
     backgroundColor: "#fff",
@@ -35,7 +29,7 @@ const useStyles = makeStyles({
     color: "#888",
   },
 });
-const Home = () => {
+const Dashboard = () => {
   const classes = useStyles();
   const currentDate = new Date();
   const period = currentDate.getDay() === 0 ? "Weekly" : "Monthly"; // Example logic
@@ -327,4 +321,4 @@ const Home = () => {
   );
 };
 
-export default Home;
+export default Dashboard;
