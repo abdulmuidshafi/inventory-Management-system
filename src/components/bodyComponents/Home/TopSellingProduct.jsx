@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Form, Row, Col, Button, Container, Table } from 'react-bootstrap';
 import { format } from "date-fns";
 import AxiosInstance from "./../../../api/AxiosInstance";
-const GenerateSalesReport = () => {
+const TopSellingProduct = () => {
   const [startDate, setStartDate] = useState('');
   const [endDate, setEndDate] = useState('');
   const [salesData, setSalesData] = useState([]);
@@ -115,4 +115,4 @@ const GenerateSalesReport = () => {
   );
 };
 
-export default GenerateSalesReport;
+export default TopSellingProduct;

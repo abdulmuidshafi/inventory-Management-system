@@ -29,7 +29,7 @@ export default function SideBarComponent() {
   const currentPage = location.pathname; 
   const sideBarComponent = [
     {
-      title: "Home",
+      title: "Dashboard",
       component: <HomeOutlined fontSize="medium" color="primary" />,
       roles: ["admin", "seller"],
     },
