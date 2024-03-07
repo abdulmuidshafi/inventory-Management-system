@@ -27,12 +27,7 @@ export default function SideBarComponent() {
   };
   const location = useLocation();
   const currentPage = location.pathname; 
-  const sideBarComponent = [
-    {
-      title: "Dashboard",
-      component: <HomeOutlined fontSize="medium" color="primary" />,
-      roles: ["admin", "seller"],
-    },
+  const sideBarComponent = [ 
     {
       title: "Products",
       component: <Inventory2Outlined fontSize="medium" color="primary" />,

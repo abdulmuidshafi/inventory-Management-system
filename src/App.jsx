@@ -14,8 +14,7 @@ import {
   RouterProvider,
 } from "react-router-dom";
 import { ToastContainer } from 'react-toastify';
-import ProtectedRoute from "../ProtectedRoute";
-import Dashboard from "./components/bodyComponents/home/Dashboard";
+import ProtectedRoute from "../ProtectedRoute"; 
 import Revenue from "./components/bodyComponents/revenue/Revenue";
 import Growth from "./components/bodyComponents/growth/Growth";
 import Products from "./page/Products";
@@ -65,8 +64,7 @@ function App() {
     createRoutesFromElements(
       <>
         <Route element={<ProtectedRoute />}>
-          <Route path="/" element={<RootComponent />}>
-            <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="/" element={<RootComponent />}> 
             <Route path="/revenue" element={<Revenue />} />
             <Route path="/growth" element={<Growth />} />
             <Route path="products" element={<Products />}>
