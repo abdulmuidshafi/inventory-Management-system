@@ -51,12 +51,14 @@ const EditSupplier = () => {
       // e.g., show success message, redirect, etc.
     } catch (error) {
       console.error(error);
-
+toast.error("error");
       // Handle error
       // e.g., show error message, etc.
     }
   };
-
+  const handleCancel = () => {
+    navigate("/Supplier");
+  };
   return (
     <Card className="shadow-sm p-3 mb-4">
       <CardHeader className="bg-light text-dark">
@@ -89,10 +91,12 @@ const EditSupplier = () => {
         </Form.Group>
         </Col>
         </Row>
-            
-        <Button variant="primary" className="mt-3" type="submit">
-          Update supplier
-        </Button>
+        <Button variant="danger" onClick={handleCancel}>
+            Cancel
+          </Button>
+          <Button variant="success" type="submit" style={{ marginLeft: "1rem" }}>
+             Update supplier
+          </Button>
       </Form>
       </CardBody>
     </Card>

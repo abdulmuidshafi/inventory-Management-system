@@ -36,7 +36,9 @@ const AddSupplier = () => {
       // e.g., show error message, etc.
     }
   };
-
+  const handleCancel = () => {
+    navigate("/Supplier");
+  };
   return (
     <Card className="shadow-sm p-3 mb-4">
       <CardHeader className="bg-light text-dark">
@@ -70,9 +72,12 @@ const AddSupplier = () => {
         </Col>
         
         </Row>
-        <Button variant="primary" className="mt-3" type="submit">
-          Add Supplier
-        </Button>
+        <Button variant="danger" onClick={handleCancel}>
+            Cancel
+          </Button>
+          <Button variant="success" type="submit" style={{ marginLeft: "1rem" }}>
+            Add supplier
+          </Button>
       </Form>
       </CardBody>
     </Card>

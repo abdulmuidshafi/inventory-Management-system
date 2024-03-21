@@ -4,8 +4,8 @@ import { Card, Button } from "react-bootstrap";
 import { useReactToPrint } from "react-to-print";
 import { format } from "date-fns";
 import numWords from "num-words";
-import pic from "./photo_2024-02-17_23-16-23.jpg";
-
+import "./PrintInvoiceForm.css";
+//import pic from "./photo_2024-02-17_23-16-23.jpg";
 const PrintInvoiceForm = forwardRef((props, ref) => {
   const componentRef = useRef();
   const printData = useReactToPrint({
@@ -53,7 +53,7 @@ const PrintInvoiceForm = forwardRef((props, ref) => {
     <div>
       <Card className="invoice-card" ref={componentRef}>
         <Card.Header className="bg-primary text-white">
-          <img src={pic} className="circle" alt="Company Logo" width="100" />
+          {/*<img src={pic} className="circle" alt="Company Logo" width="100" />*/}
           <h3>Invoice</h3>
         </Card.Header>
 
@@ -62,13 +62,13 @@ const PrintInvoiceForm = forwardRef((props, ref) => {
             <div className="invoice-header">
               <div className="d-flex justify-content-between">
                 <div>
-                  <h4>ABDI SPERPARTS</h4>
+                  <h4>EASTERN AFRICA VETERN SERVICE</h4>
                   <p>Phone: 09654576</p>
                   <p>Address: ADDISABABA</p>
                   <p>Supplier's TIN no: 12222222222222</p>
                 </div>
                 <div>
-                  <p>Invoice Number: {invoiceFormData._id}</p>
+                  <p>Invoice Number: {invoiceFormData._id || ""}</p>
                   <p>
                     Date: {format(invoiceFormData.saleOrderTime, "MM/dd/yyyy")}
                   </p>

@@ -8,16 +8,7 @@ import {
   IconButton,
   Box, 
 } from "@mui/material";
-import {
-  HomeOutlined,
-  Inventory2Outlined,
-  SettingsOutlined,
-  DescriptionOutlined,
-  MonetizationOnOutlined,
-  CardTravelOutlined,
-  TrendingUpOutlined,
-  PeopleAltOutlined,
-} from "@mui/icons-material";
+import { CarCrash, Dashboard, ManageAccounts, MonetizationOnOutlined, MonochromePhotos, ProductionQuantityLimitsTwoTone, Store, TrendingUpOutlined } from "@mui/icons-material";
 import {  useLocation, useNavigate } from "react-router-dom";
 export default function SideBarComponent() {
   const navigate = useNavigate(); 
@@ -30,38 +21,43 @@ export default function SideBarComponent() {
   const sideBarComponent = [
     {
       title: "Dashboard",
-      component: <HomeOutlined fontSize="medium" color="primary" />,
+      component: <Dashboard fontSize="medium" color="primary" />,
       roles: ["admin", "seller"],
     },
-    {
-      title: "Products",
-      component: <Inventory2Outlined fontSize="medium" color="primary" />,
-      roles: ["admin"],
-    },
-    {
-      title: "Purchase",
-      component: <CardTravelOutlined fontSize="medium" color="primary" />,
-      roles: ["admin"],
-    },
-    {
-      title: "User",
-      component: <PeopleAltOutlined fontSize="medium" color="primary" />,
-      roles: ["admin" ],
-    },
-    {
+   /* {
       title: "Revenue",
       component: <MonetizationOnOutlined fontSize="medium" color="primary" />,
       roles: ["admin", "seller"],
-    },
+    },*/
     {
       title: "Growth",
       component: <TrendingUpOutlined fontSize="medium" color="primary" />,
       roles: ["admin", "seller"],
     },
     {
+      title: "Products",
+      component: <ProductionQuantityLimitsTwoTone fontSize="medium" color="primary" />,
+      roles: ["admin"],
+    },
+    {
+      title: "stores",
+      component: <Store fontSize="medium" color="primary" />,
+      roles: ["admin"],
+    },
+    {
+      title: "Purchase",
+      component: <CarCrash fontSize="medium" color="primary" />,
+      roles: ["admin"],
+    },
+    {
+      title: "Management",
+      component: <ManageAccounts fontSize="medium" color="primary" />,
+      roles: ["admin" ],
+    },
+    {
       title: "Sales",
       component: (
-        <DescriptionOutlined
+        < MonochromePhotos
           fontSize="medium"
           color="primary" 
           className="border-0 border-bottom rounded bi bi-cart4 me-2"
@@ -72,7 +68,7 @@ export default function SideBarComponent() {
 
     {
       title: "Supplier",
-      component: <SettingsOutlined fontSize="medium" color="primary" />,
+      component: <CarCrash fontSize="medium" color="primary" />,
       roles: ["admin"],
     },
   ];
@@ -91,8 +87,9 @@ export default function SideBarComponent() {
       sx={{
         width: "100%",
         maxWidth: 280,
-        height: "100vh",
+        height: "150vh",
         backgroundColor: "#f5f5f5",
+        
       }}
     >
       <List>
@@ -120,7 +117,7 @@ export default function SideBarComponent() {
                 primaryTypographyProps={{
                   fontSize: "1rem",
                   fontWeight: selected === index ? "bold" : "inherit",
-                  color: selected === index ? "#000" : "#666",
+                  color: selected === index ? "#000" : "#666",     
                 }}
               />
             </ListItemButton>

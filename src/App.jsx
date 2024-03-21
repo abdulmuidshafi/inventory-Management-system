@@ -36,6 +36,10 @@ import SettingsPage from "./page/SettingsPage";
 import ChangePasswordForm from "./profiles/ChangePasswordForm";
 import EditProfileForm from "./profiles/EditProfileForm";
 import Dashboard from "./home/Dashboard";
+import Store from "./page/Store";
+import StoreList from "./stores/StoreList";
+import StoreCreate from "./stores/StoreCreate";
+import StoreUpdate from "./stores/StoreUpdate";
 function App() {
   const theme = createTheme({
     spacing: 4,
@@ -73,7 +77,7 @@ function App() {
               <Route path="add" element={<AddProduct />} />
               <Route path="edit/:productId" element={<EditProduct />} />
             </Route>
-            <Route path="user" element={<User />}>
+            <Route path="Management" element={<User />}>
               <Route index element={<ListUsers />} />
               <Route path="add" element={<CreateUser />} />
               <Route path="edit/:userId" element={<UpdateUser />} />
@@ -94,6 +98,11 @@ function App() {
             <Route path="sales" element={<Sales />}>
               <Route index element={<SaleList />} />
               <Route path="add" element={<AddSale />} />
+            </Route>
+            <Route path="stores" element={<Store />}>
+              <Route index element={<StoreList />} />
+              <Route path="add" element={<StoreCreate />} />
+              <Route path="edit/:storeId" element={<StoreUpdate />} />
             </Route>
           </Route>
         </Route>

@@ -22,7 +22,7 @@ const AddPurchase = () => {
   });
   const navigate = useNavigate();
   useEffect(() => {
-    // Fetch product data
+    // Fetch product data 
     fetchProducts();
 
     // Fetch supplier data
@@ -85,7 +85,9 @@ const AddPurchase = () => {
         console.error("Error adding purchase:", error);
       });
   };
-
+  const handleCancel = () => {
+    navigate("/purchase");
+  };
   return (
     <Card className="shadow-sm p-3 mb-4">
     <CardHeader className="bg-light text-dark">
@@ -159,9 +161,12 @@ const AddPurchase = () => {
         </Form.Group>
         </Col>
         </Row>
-        <Button variant="primary" type="submit">
-          Add Purchase
-        </Button>
+        <Button variant="danger" onClick={handleCancel}>
+            Cancel
+          </Button>
+          <Button variant="success" type="submit" style={{ marginLeft: "1rem" }}>
+            Add Purchase
+          </Button>
       </Form>
       </CardBody>
     </Card>

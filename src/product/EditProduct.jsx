@@ -3,12 +3,10 @@ import { Form, Button } from "react-bootstrap";
 import { useNavigate, useParams } from "react-router-dom";
 import AxiosInstance from "../api/AxiosInstance";
 import { toast } from "react-toastify";
-
 const EditProduct = () => {
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
-  const [price, setPrice] = useState("");
-  // const [stock, setStock] = useState("");
+  const [price, setPrice] = useState(""); 
   const [brand, setBrand] = useState("");
   const { productId } = useParams();
   const navigate = useNavigate();
@@ -16,22 +14,22 @@ const EditProduct = () => {
   useEffect(() => {
     fetchProduct();
   }, []);
-
   const fetchProduct = async () => {
     try {
       const response = await AxiosInstance.get(`/products/${productId}`);
       const product = response.data;
       setName(product.name);
       setDescription(product.description);
-      setPrice(product.price);
-      // setStock(product.stock);
+      setPrice(product.price); 
       setBrand(product.brand);
     } catch (error) {
       console.error(error);
       // Handle error
-      // e.g., show error message, etc.
+      toast.error("Something went wrong");
     }
   };
+      // e.g., show error message, etc.
+   
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -51,13 +49,12 @@ const EditProduct = () => {
       navigate("/products");
       // e.g., show success message, redirect, etc.
     } catch (error) {
-      console.error(error);
-
-      // Handle error
-      // e.g., show error message, etc.
+      console.error(error); 
     }
   };
-
+  const handleCancel = () => {
+    navigate("/products");
+  };
   return (
     <div className="p-3">
       <h2>Edit Product</h2>
@@ -113,10 +110,12 @@ const EditProduct = () => {
             onChange={(e) => setBrand(e.target.value)}
           />
         </Form.Group>
-
-        <Button variant="primary" className="mt-3" type="submit">
-          Update Product
-        </Button>
+        <Button variant="danger" onClick={handleCancel}>
+            Cancel
+          </Button>
+          <Button variant="success" type="submit" style={{ marginLeft: "1rem" }}>
+            Update Product
+          </Button>
       </Form>
     </div>
   );

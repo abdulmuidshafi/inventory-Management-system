@@ -9,10 +9,10 @@ import {
   Row,
   Col,
 } from "react-bootstrap";
-import axios from "axios";
-import AxiosInstance from "../api/AxiosInstance";
-import { useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { toast} from"react-toastify";
+import AxiosInstance from "../api/AxiosInstance";
+import { useNavigate } from "react-router-dom"; 
 import { faEdit, faTrash, faCoffee } from "@fortawesome/free-solid-svg-icons";
 import { ButtonGroup } from "react-bootstrap";
 
@@ -73,11 +73,12 @@ const SupplierList = () => {
         </Button>
       </div>
       <Row className="justify-content-center">
-        <Col md={10}>
+        <Col md={12}>
           <h2 className="mb-4 text-center">Manage Your Suppliers</h2>
           {isLoading ? (
             <Spinner animation="border" variant="primary" size="lg" />
-          ) : (
+          ) :
+           (
             <Card className="p-4">
               <Table striped bordered hover responsive>
                 <thead>

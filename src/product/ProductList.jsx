@@ -6,7 +6,6 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEdit, faTrash } from "@fortawesome/free-solid-svg-icons";
 import ButtonGroup from "react-bootstrap/ButtonGroup";
 import { Modal } from "react-bootstrap";
-
 const ProductList = () => {
   const navigate = useNavigate();
   const [products, setProducts] = useState([]);
@@ -18,7 +17,6 @@ const ProductList = () => {
   useEffect(() => {
     fetchProducts();
   }, []);
-
   const fetchProducts = async () => {
     try {
       const response = await AxiosInstance.get("/products", {
@@ -30,13 +28,11 @@ const ProductList = () => {
       // Handle error
     }
   };
-
   const handleSearch = (e) => {
     e.preventDefault();
     setCurrentPage(1); // Reset to the first page when performing a new search
     fetchProducts();
   };
-
   const handleNextPage = () => {
     if (currentPage < totalPages) {
       setCurrentPage(currentPage + 1);
@@ -53,7 +49,6 @@ const ProductList = () => {
         product.name.toLowerCase().includes(searchName.toLowerCase())
       )
     : [];
-
   const totalPages = Math.ceil(filteredProducts.length / pageSize);
 
   const filteredProductsOnPage = filteredProducts.slice(
@@ -108,7 +103,6 @@ const ProductList = () => {
             </Button>
           </Form>
         </div>
-
         <Table striped bordered hover size="sm" responsive>
           <thead>
             <tr>
@@ -202,7 +196,7 @@ const ProductList = () => {
           {/* Generate page numbers based on page size and total products */}
           {Array.from({ length: Math.min(5, totalPages) }).map((_, i) => (
             <Pagination.Item
-              key={i + 2}
+              key={i + 1}
               active={currentPage === i + 2}
               onClick={() => setCurrentPage(i + 2)}
             >

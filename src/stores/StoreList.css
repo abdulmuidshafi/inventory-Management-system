@@ -1,0 +1,37 @@
+/* General Layout */
+.container-fluid {
+    @apply px-4 py-4 mx-auto; /* Apply padding and margins */
+  }
+  
+  .card {
+    @apply shadow-md rounded-lg p-4 bg-white; /* Add shadows, rounded corners, and padding */
+  }
+  
+  .table {
+    @apply min-w-full divide-y divide-gray-200; /* Widen table and add borders */
+  }
+  
+  /* Typography */
+  h2 {
+    @apply text-lg font-medium text-center mb-4; /* Adjust heading style */
+  }
+  
+  /* Table Rows */
+  tbody tr:nth-child(even) {
+    @apply bg-gray-50; /* Alternate row colors */
+  }
+  
+  /* Modal */
+  .modal {
+    @apply bg-white rounded-lg overflow-hidden shadow-xl; /* Style modal background and shadow */
+  }
+  
+  /* Buttons */
+  .btn-primary {
+    @apply bg-blue-500 text-white hover:bg-blue-700; /* Primary button style */
+  }
+  
+  .btn-danger {
+    @apply bg-red-500 text-white hover:bg-red-700; /* Danger button style */
+  }
+  

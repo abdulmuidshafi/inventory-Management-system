@@ -2,37 +2,15 @@ import React, { useState, useEffect } from "react";
 import {  Grid } from "@mui/material"; 
 import TotalSales from "./TotalSales";
 import SalesByCity from "./SalesByCity";
-import Channels from "./Channels";
-import TopSellingProduct from "./TopSellingProduct";
+import {
+  Dangerous,
+  MonetizationOnRounded,
+  Person,
+  ProductionQuantityLimitsTwoTone,
+} from "@mui/icons-material";  
 import AxiosInstance from "../api/AxiosInstance";
 import { Typography, Card, CardContent, CardActionArea } from "@mui/material";
-import { makeStyles } from "@mui/styles"; 
-const useStyles = makeStyles({
-  card: {
-    backgroundColor: "#fff",
-    padding: "16px",
-    borderRadius: "8px",
-    boxShadow: "0px 4px 8px rgba(0, 0, 0, 0.1)",
-  },
-  cardIcon: {
-    fontSize: "48px",
-    marginBottom: "16px",
-    color: "#4285f4",
-  },
-  cardValue: {
-    fontSize: "24px",
-    fontWeight: "bold",
-    color: "#4285f4",
-  },
-  cardAnnotation: {
-    fontSize: "14px",
-    color: "#888",
-  },
-});
-const Dashboard = () => {
-  const classes = useStyles();
-  const currentDate = new Date();
-  const period = currentDate.getDay() === 0 ? "Weekly" : "Monthly"; // Example logic
+const Dashboard = () => { 
   const [dailySales, setDailySales] = useState();
   const [weeklySales, setWeeklySales] = useState();
   const [monthlySales, setMonthlySales] = useState();
@@ -85,240 +63,136 @@ const Dashboard = () => {
       .catch((error) => console.log(error));
   };
   return (
-    <Grid container spacing={4} className={`mt-3 px-3 py-0`}>
-      <Grid item xs={12} md={3}>
-        <Card className={classes.card} style={{ backgroundColor: "#8BC34A" }}>
-          <CardActionArea>
-            <CardContent>
-              <div className={classes.cardIcon} aria-label="People Icon">
-                <i className="bi bi-people" style={{ color: "#fff" }}></i>
+<Grid container spacing={4} className="mt-3 px-3 py-0">
+  <Grid item xs={12} md={3}>
+    <Card className="card" style={{ backgroundColor: "#8BC34A", height: "200px" }}>
+      <CardActionArea>
+        <CardContent>
+          <Card className="mt-6 p-1" placeholder="card view">
+            <div className="d-flex flex-row align-items-center justify-content-start">
+              <div className="rounded-lg bg-gray-900 text-white" style={{ fontSize: "64px", padding: "2px", width: "64px", height: "64px" }}>
+                <Person className="text-dark" style={{ fontSize: "50px" }} />
               </div>
-              <Typography variant="h6" style={{ color: "#fff" }}>
-                Number of People Bought Today
-              </Typography>
-              <Typography
-                className={classes.cardValue}
-                style={{ color: "#fff", animation: "pulse 1s ease-in-out" }}
-              ></Typography>
-              <Typography
-                className={classes.cardAnnotation}
-                style={{ color: "#ddd" }}
-              >
-                {dailySales?.sales}
-              </Typography>
-            </CardContent>
-          </CardActionArea>
-        </Card>
-      </Grid>
-      <Grid item xs={12} md={3}>
-        <Card
-          className={classes.card}
-          style={{
-            backgroundImage: "linear-gradient(to bottom, #f5f5f5, #e0e0e0)",
-          }}
-        >
-          <CardActionArea>
-            <CardContent>
-              <div className={classes.cardIcon} aria-label="People Icon">
-                <i
-                  className="bi bi-calendar-week"
-                  style={{ color: "#4285f4" }}
-                ></i>
+              <div className="ms-3">
+                <Typography placeholder="card view" variant="h6" color="blue-gray">
+                  Visitors
+                </Typography>
+                <Typography
+                  placeholder="card view"
+                  variant="small"
+                  color="gray"
+                  className="max-w-sm font-normal"
+                  style={{ maxWidth: "200px" }}
+                >
+                  Today: {dailySales?.sales} <br />
+                  Weekly: {weeklySales?.sales} <br />
+                  Monthly: {monthlySales?.sales}
+                </Typography>
               </div>
-              <Typography variant="h6">
-                Number of People Bought Weekly {period}
-              </Typography>
-              <Typography className={classes.cardValue}></Typography>
-              <Typography className={classes.cardAnnotation}>
-                {weeklySales?.sales}
-              </Typography>
-            </CardContent>
-          </CardActionArea>
-        </Card>
-      </Grid>
-      <Grid item xs={12} md={3}>
-        <Card className={classes.card}>
-          <CardActionArea>
-            <CardContent>
-              <div className={classes.cardIcon} aria-label="People Icon">
-                <i className="bi bi-calendar-month"></i>
+            </div>
+          </Card>
+        </CardContent>
+      </CardActionArea>
+    </Card>
+  </Grid>
+  <Grid item xs={12} md={3}>
+    <Card className="card" style={{ backgroundColor: "#4285f4", height: "200px" }}>
+      <CardActionArea>
+        <CardContent>
+          <Card className="mt-6 p-1" placeholder="card view">
+            <div className="d-flex flex-row align-items-center justify-content-start">
+              <div className="rounded-lg bg-gray-900 text-white" style={{ fontSize: "64px", padding: "2px", width: "64px", height: "64px" }}>
+                <MonetizationOnRounded className="text-dark" style={{ fontSize: "50px" }} />
               </div>
-              <Typography variant="h6">
-                Number of People Bought Monthly
-              </Typography>
-              <Typography className={classes.cardValue}></Typography>
-              <Typography className={classes.cardAnnotation}>
-                {monthlySales?.sales}
-              </Typography>
-            </CardContent>
-          </CardActionArea>
-        </Card>
-      </Grid>
-      <Grid item xs={12} md={3}>
-        <Card
-          className={classes.card}
-          style={{ backgroundColor: "#4285f4", color: "#fff" }}
-        >
-          <CardActionArea>
-            <CardContent>
-              <div className={classes.cardIcon} aria-label="Calendar Icon">
-                <i
-                  className="bi bi-calendar-week"
-                  style={{ color: "#fff" }}
-                ></i>
+              <div className="ms-3">
+                <Typography placeholder="card view" variant="h6" color="primary">
+                  Total Sales amount(Birr)
+                </Typography>
+                <Typography
+                  placeholder="card view"
+                  variant="small"
+                  color="primary"
+                  className="max-w-sm font-normal"
+                  style={{ maxWidth: "100px" }}
+                >
+                  Today: {amountDaily?.totalWeekAmount} <br />
+                  Weekly: {amountWeekly?.totalWeekAmount} <br />
+                  Monthly: {amountMonthly?.totalWeekAmount}
+                </Typography>
               </div>
-              <Typography
-                variant="h6"
-                style={{ fontSize: 18, fontWeight: 700 }}
-              >
-                Total Amount (Birr)
-              </Typography>
-              <Typography
-                className={classes.cardValue}
-                style={{ fontSize: 24, fontWeight: 700 }}
-              ></Typography>
-              <br />
-              <Typography variant="subtitle2" style={{ color: "#ddd" }}>
-                daily Total Amount (Birr):
-              </Typography>
-              <Typography
-                className={classes.cardValue}
-                style={{ color: "#ddd" }}
-              >
-                {amountDaily?.totalWeekAmount}
-              </Typography>
-            </CardContent>
-          </CardActionArea>
-        </Card>
-      </Grid>
-
-      <Grid item xs={12} md={3}>
-        <Card
-          className={classes.card}
-          style={{ backgroundColor: "#4285f4", color: "#fff" }}
-        >
-          <CardActionArea>
-            <CardContent>
-              <div className={classes.cardIcon} aria-label="Calendar Icon">
-                <i
-                  className="bi bi-calendar-week"
-                  style={{ color: "#fff" }}
-                ></i>
+            </div>
+          </Card>
+        </CardContent>
+      </CardActionArea>
+    </Card>
+  </Grid>
+  <Grid item xs={12} md={3}>
+    <Card className="card" style={{ backgroundColor: "#0054BB", height: "200px" }}>
+      <CardActionArea>
+        <CardContent>
+          <Card className="mt-6 p-1" placeholder="card view">
+            <div className="d-flex flex-row align-items-center justify-content-start">
+              <div className="rounded-lg bg-gray-900 text-white" style={{ fontSize: "64px", padding: "2px", width: "64px", height: "64px" }}>
+                <ProductionQuantityLimitsTwoTone className="text-dark" style={{ fontSize: "50px" }} />
               </div>
-              <Typography
-                variant="h6"
-                style={{ fontSize: 18, fontWeight: 700 }}
-              >
-                Total Amount (Birr)
-              </Typography>
-              <Typography
-                className={classes.cardValue}
-                style={{ fontSize: 24, fontWeight: 700 }}
-              ></Typography>
-              <br />
-              <Typography variant="subtitle2" style={{ color: "#ddd" }}>
-                wekly Total Amount (Birr):
-              </Typography>
-              <Typography
-                className={classes.cardValue}
-                style={{ color: "#ddd" }}
-              >
-                {amountWeekly?.totalWeekAmount}
-              </Typography>
-            </CardContent>
-          </CardActionArea>
-        </Card>
-      </Grid>
-      <Grid item xs={12} md={3}>
-        <Card
-          className={classes.card}
-          style={{ backgroundColor: "#4285f4", color: "#fff" }}
-        >
-          <CardActionArea>
-            <CardContent>
-              <div className={classes.cardIcon} aria-label="Calendar Icon">
-                <i
-                  className="bi bi-calendar-week"
-                  style={{ color: "#fff" }}
-                ></i>
+              <div className="ms-3">
+                <Typography placeholder="card view" variant="h6" color="primary">
+                  Total Products 
+                </Typography>
+                <Typography
+                  placeholder="card view"
+                  variant="small"
+                  color="primary"
+                  className="max-w-sm font-normal"
+                  style={{ maxWidth: "100px" }}
+                >
+                   {products?.totalproduct} 
+                
+                </Typography>
               </div>
-              <Typography
-                variant="h6"
-                style={{ fontSize: 18, fontWeight: 700 }}
-              >
-                Total Amount (Birr)
-              </Typography>
-              <Typography
-                className={classes.cardValue}
-                style={{ fontSize: 24, fontWeight: 700 }}
-              ></Typography>
-              <br />
-              <Typography variant="subtitle2" style={{ color: "#ddd" }}>
-                Monthly Total Amount (Birr):
-              </Typography>
-              <Typography
-                className={classes.cardValue}
-                style={{ color: "#ddd" }}
-              >
-                {amountMonthly?.totalWeekAmount}
-              </Typography>
-            </CardContent>
-          </CardActionArea>
-        </Card>
-      </Grid>
-      <Grid item xs={12} md={3}>
-        <Card className={classes.card}>
-          <CardActionArea>
-            <CardContent>
-              <div className={classes.cardIcon} aria-label="Product Icon">
-                <i className="bi bi-cart4" style={{ color: "#e91e63" }}></i>
-              </div>
-              <Typography variant="h6">Total Number of Products</Typography>
-              {products?.totalproduct}
-            </CardContent>
-          </CardActionArea>
-        </Card>
-      </Grid>
-
-      <Grid item xs={12} md={3}>
-        <Card
-          className={classes.card}
-          style={{ backgroundColor: "#f5f5f5", border: "1px solid #ddd" }}
-        >
-          <CardActionArea>
-            <CardContent>
-              <div className={classes.cardIcon} aria-label="Warning Icon">
-                <i
-                  className="bi bi-exclamation-triangle"
-                  style={{ color: "#e91e63" }}
-                ></i>
-              </div>
-              <Typography variant="h6" style={{ color: "#333" }}>
+            </div>
+          </Card>
+        </CardContent>
+      </CardActionArea>
+    </Card>
+  </Grid>
+  <Grid item xs={12} md={3}>
+  <Card className="card" style={{ backgroundColor: "#f44336", height: "200px" }}>
+    <CardActionArea>
+      <CardContent>
+        <Card className="mt-6 p-1" placeholder="card view">
+          <div className="d-flex flex-row align-items-center justify-content-start">
+            <div className="rounded-lg bg-gray-900 text-white" style={{ fontSize: "64px", padding: "2px", width: "64px", height: "64px" }}>
+              <Dangerous className="text-dark" style={{ fontSize: "50px" }} />
+            </div>
+            <div className="ms-3">
+              <Typography placeholder="card view" variant="h6" color="primary">
                 Out of Stock Items
               </Typography>
-              {products?.outofstockproduct}
               <Typography
-                className={classes.cardValue}
-                style={{ color: "#333", fontSize: 18 }}
-              ></Typography>
-            </CardContent>
-          </CardActionArea>
+                placeholder="card view"
+                variant="small"
+                color="primary"
+                className="max-w-sm font-normal"
+                style={{ maxWidth: "100px" }}
+              >
+                {products?.outofstockproduct}
+              </Typography>
+            </div>
+          </div>
         </Card>
-      </Grid>
-      <Grid item xs={12} md={6}>
-        <TotalSales dailySales={dailySales} />
-      </Grid> 
-      <Grid item xs={12} md={6}>
-        <SalesByCity />
-      </Grid>
-      <Grid item xs={12} md={6}>
-        <Channels />
-      </Grid>
-      <Grid item xs={12} md={6}>
-        <TopSellingProduct products={products} />
-      </Grid>
-    </Grid>
+      </CardContent>
+    </CardActionArea>
+  </Card>
+</Grid>
+  <Grid item xs={12} md={6}>
+    <TotalSales dailySales={dailySales} />
+  </Grid>
+
+  <Grid item xs={12} md={6}>
+    <SalesByCity />
+  </Grid>
+</Grid>
   );
 };
-
 export default Dashboard;

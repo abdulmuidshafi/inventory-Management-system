@@ -32,7 +32,7 @@ const CreateUser = () => {
         role,
       });
       console.log("User created:", response.data);
-      navigate("/user");
+      navigate("/Management");
       toast.success("User created");
     } catch (error) {
       toast.error("Error creating user:");
@@ -96,7 +96,7 @@ const CreateUser = () => {
           <Button variant="primary" type="submit">
             Create
           </Button>
-          <Button variant="secondary" onClick={() => navigate("/user")}>
+          <Button variant="secondary" onClick={() => navigate("/Management")}>
             Cancel
           </Button>
         </Form>

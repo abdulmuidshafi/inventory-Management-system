@@ -1,40 +1,12 @@
 import React, { useState, useEffect } from "react";
 import ApexCharts from "react-apexcharts";
-import { makeStyles } from "@mui/styles";
-import { Box, Typography } from "@mui/material";
+import { Box } from "@mui/material";
 import AxiosInstance from "../api/AxiosInstance";
 
-const useStyles = makeStyles((theme) => ({
-  container: {
-    display: "flex",
-    justifyContent: "center",
-    alignItems: "center",
-    height: "100%",
-  },
-  chartWrapper: {
-    width: "100%",
-    height: "100%",
-  },
-  title: {
-    fontSize: "20px",
-    fontWeight: "bold",
-    marginBottom: "10px",
-  },
-  subtitle: {
-    fontSize: "16px",
-    color: "#666",
-    marginBottom: "20px",
-  },
-  legendItem: {
-    fontSize: "14px",
-    marginBottom: "5px",
-  },
-}));
-
 export default function TotalSales() {
-  const classes = useStyles();
   const currentDate = new Date();
   const period = currentDate.getDay() === 0 ? "Weekly" : "Monthly";
+
   const [dailySales, setDailySales] = useState();
   const [weeklySales, setWeeklySales] = useState();
   const [monthlySales, setMonthlySales] = useState();
@@ -184,12 +156,6 @@ export default function TotalSales() {
         height: "100%",
       }}
     >
-      <Typography variant="h4" className={classes.title}>
-        Total Sales
-      </Typography>
-      <Typography variant="subtitle1" className={classes.subtitle}>
-        Sales over time
-      </Typography>
       <ApexCharts
         options={options}
         series={series}
@@ -197,17 +163,6 @@ export default function TotalSales() {
         type="line"
         width="100%"
       />
-      <Box mt={2}>
-        {options.legend.customLegendItems.map((item, index) => (
-          <Typography
-            key={index}
-            variant="body1"
-            className={classes.legendItem}
-          >
-            {item}
-          </Typography>
-        ))}
-      </Box>
     </Box>
   );
 }

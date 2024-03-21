@@ -12,16 +12,15 @@ import {
   Pagination,
 } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
-import AxiosInstance from "../api/AxiosInstance";
-import { useReactToPrint } from "react-to-print";
+import AxiosInstance from "../api/AxiosInstance"; 
 import PrintInvoice from "./PrintInvoice";
-
+import { format } from "date-fns";
 const SaleList = () => {
   const [sales, setSales] = useState([]);
   const [searchName, setSearchName] = useState("");
   const [showAlert, setShowAlert] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
-  const [pageSize, setPageSize] = useState(2);
+  const [pageSize, setPageSize] = useState(5);
   const invoiceFormRef = useRef(null);
   const navigate = useNavigate();
   useEffect(() => {
@@ -44,7 +43,6 @@ const SaleList = () => {
         console.error("Error fetching sales:", error);
       });
   };
-
   const filterSalesByCustomerName = (data) => {
     return data.filter((sale) =>
       sale.customer_name.toLowerCase().includes(searchName.toLowerCase())
@@ -55,23 +53,24 @@ const SaleList = () => {
       setCurrentPage(currentPage + 1);
     }
   };
-
   const handlePreviousPage = () => {
     if (currentPage > 1) {
       setCurrentPage(currentPage - 1);
     }
   };
-
   const filteredSalesOnPage = sales.slice(
     (currentPage - 1) * pageSize,
     currentPage * pageSize
   );
-  // console.log(sales);
   const handleSearch = (e) => {
     e.preventDefault();
     fetchSales();
   };
-
+  
+  const handleSearchInputChange = (e) => {
+    setSearchName(e.target.value);
+    handleSearch(e);
+  };
   const calculateTotal = (items) => {
     let total = items.reduce(
       (accumulator, item) => accumulator + item.product.price * item.quantity,
@@ -79,7 +78,6 @@ const SaleList = () => {
     );
     return total;
   };
-
   const confirmPayment = (saleId) => {
     const sale = sales.find((sale) => sale._id === saleId);
     if (sale) {
@@ -102,7 +100,6 @@ const SaleList = () => {
       }
     }
   };
-
   const returnProduct = (saleId) => {
     const sale = sales.find((sale) => sale._id === saleId);
     if (sale) {
@@ -124,14 +121,7 @@ const SaleList = () => {
     if (childRef.current) {
       childRef.current.printData();
     }
-  };
-  const handlePrintInvoice = () => {
-    const invoiceContent =
-      invoiceFormRef.current.querySelector(".invoice-content");
-    printRef({ content: () => invoiceContent });
-  };
-
-
+  };  
   return (
     <div className="p-2">
       <Card className="mb-3 shadow-sm">
@@ -145,11 +135,12 @@ const SaleList = () => {
               Add Sale
             </Button>
             <Form onSubmit={handleSearch} className="d-flex align-items-center">
-              <FormControl
-                type="text"
-                value={searchName}
-                onChange={(e) => setSearchName(e.target.value)}
-              />
+            <FormControl
+  type="text"
+  placeholder="search for customer name"
+  value={searchName}
+  onChange={handleSearchInputChange}
+/>
               <Button variant="primary" type="submit">
                 Search
               </Button>
@@ -164,16 +155,15 @@ const SaleList = () => {
               No customer found with that name. Redirecting back to sales list.
             </Alert>
           )}
+          <Card className="shadow-md rounded-lg p-4">
           <div id="print-content">
             <Table
-              hover
-              size="sm"
-              responsive
-              className="border border-striped rounded shadow-sm w-100"
+ responsive striped bordered hover className="table-modern"
             >
               <thead>
                 <tr>
                   <th scope="col">ID</th>
+                  <th scope="col">Store Name</th>
                   <th scope="col">Sale Order Time</th>
                   <th scope="col">Status</th>
                   <th scope="col">Seller</th>
@@ -183,7 +173,7 @@ const SaleList = () => {
                   <th scope="col">Customer Name</th>
                   <th scope="col">Customer TIN</th>
                   <th scope="col">Actions</th>
-                  <th scope="col">Print</th>
+                  <th scope="col" className="btn btn-succes">Print</th>
                 </tr>
               </thead>
               <tbody>
@@ -194,7 +184,8 @@ const SaleList = () => {
                     style={index % 2 ? { backgroundColor: "#f5f5f5" } : null}
                   >
                     <td>{index + 1}</td>
-                    <td>{sale.saleOrderTime}</td>
+                    <td>{sale?.Store?.name}</td> 
+                    <td>  {format( sale.saleOrderTime, "HH:mm/MM/dd/yyyy")}</td>
                     <td>
                       {sale.status === "complete" ? (
                         <Badge pill bg="success">
@@ -247,13 +238,12 @@ const SaleList = () => {
                           ref={childRef}
                         />
                       </div>
-                      <button
-                        className="btn-sccuss"
-                        onClick={callChilfFunction}
-                      // key={[sale._id,sale.customer_name,Math.random(10000)]}
+                      <Button
+                        variant="success" type="submit" style={{ marginLeft: "1rem" }}
+                        onClick={callChilfFunction} 
                       >
                         Print
-                      </button>
+                      </Button>
                     </td>
                   </tr>
                 ))}
@@ -282,10 +272,10 @@ const SaleList = () => {
               />
             </Pagination>
           </div>
+          </Card>
         </Card.Body>
       </Card>
     </div>
   );
 };
-
 export default SaleList;

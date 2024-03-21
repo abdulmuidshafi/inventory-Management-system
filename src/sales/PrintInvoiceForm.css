@@ -1,0 +1,150 @@
+/* PrintInvoiceForm.css */
+
+/* PrintInvoiceForm.css */
+
+.invoice-card {
+  width: 100%;
+  max-width: 800px;
+  margin: 0 auto;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  font-family: Arial, sans-serif;
+  background-color: #f9f9f9; /* Set the desired background color */
+}
+
+/* Rest of the CSS code remains the same */
+
+.invoice-card .card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: #007bff;
+  color: #fff;
+  padding: 10px;
+}
+
+.invoice-card .card-header h3 {
+  margin: 0;
+  font-size: 24px;
+}
+
+.invoice-card .invoice-form {
+  padding: 20px;
+}
+
+.invoice-card .invoice-header {
+  margin-bottom: 30px;
+}
+
+.invoice-card .invoice-header .d-flex {
+  display: flex;
+  justify-content: space-between;
+}
+
+.invoice-card .invoice-header h4 {
+  margin: 0;
+  font-size: 20px;
+  font-weight: 600;
+}
+
+.invoice-card .invoice-header p {
+  font-size: 14px;
+  margin-bottom: 5px;
+}
+
+.invoice-card hr {
+  border-top: 1px solid #ddd;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.invoice-card .invoice-details h5 {
+  margin-top: 0;
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.invoice-card .invoice-details .form-group {
+  margin-bottom: 15px;
+}
+
+.invoice-card .invoice-details label {
+  font-weight: 600;
+}
+
+.invoice-card .invoice-details input[type="text"] {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 14px;
+}
+
+.invoice-card .invoice-details .table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 20px;
+}
+
+.invoice-card .invoice-details .table th,
+.invoice-card .invoice-details .table td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  font-size: 14px;
+}
+
+.invoice-card .invoice-summary p {
+  font-size: 14px;
+  margin-bottom: 5px;
+}
+
+/* Additional styling for a more modern look */
+
+.invoice-card .invoice-header h4 {
+  color: #333;
+}
+
+.invoice-card .invoice-details .table th {
+  background-color: #f5f5f5;
+  font-weight: 600;
+}
+
+.invoice-card .invoice-summary {
+  margin-top: 20px;
+  text-align: right;
+}
+
+.invoice-card .invoice-summary p:last-child {
+  font-size: 16px;
+  font-weight: 600;
+  margin-top: 10px;
+}
+
+.invoice-card .invoice-summary p:last-child::before {
+  content: "Total Amount in Words: ";
+  font-weight: 400;
+}
+
+@media print {
+  .invoice-card {
+    box-shadow: none;
+  }
+  
+  .invoice-card .card-header {
+    display: none;
+  }
+  
+  .invoice-card .invoice-form {
+    padding: 0;
+  }
+  
+  .invoice-card .invoice-details .table th,
+  .invoice-card .invoice-details .table td {
+    border: none;
+    padding: 5px;
+  }
+  
+  .invoice-card .invoice-summary {
+    margin-top: 40px;
+    text-align: left;
+  }
+}

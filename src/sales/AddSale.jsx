@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+ import React, { useState, useEffect } from "react";
 import {
   Form,
   Button,
@@ -8,131 +8,161 @@ import {
   Row,
   Col,
 } from "react-bootstrap";
-import AxiosInstance from "../api/AxiosInstance";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
-
+import AxiosInstance from "../api/AxiosInstance";
 const AddSale = () => {
   const [products, setProducts] = useState([]);
+  const [stores, setStores] = useState([]);
   const [formData, setFormData] = useState({
-    // seller: "",
-    items: [],
+    store_id: "",
+    items: [{ product: "", quantity: "" }],
     customer_name: "",
     customer_TIN: "",
   });
-  //const [sellerInfo, setSellerInfo] = useState(null);
   const navigate = useNavigate();
   const user = JSON.parse(localStorage.getItem("token"));
   useEffect(() => {
-    // Fetch product data
+    fetchStores();
     fetchProducts();
-
-    // Fetch seller data
-    // fetchSeller();
   }, []);
 
+  const fetchStores = () => {
+    AxiosInstance.get("/stores")
+      .then((response) => {
+        setStores(response.data);
+      })
+      .catch((error) => {
+        console.error("Error fetching stores:", error);
+      });
+  };
   const fetchProducts = () => {
     AxiosInstance.get("/products")
-      .then((response) => response.data)
-      .then((data) => {
-        setProducts(data);
+      .then((response) => {
+        setProducts(response.data);
       })
       .catch((error) => {
         console.error("Error fetching products:", error);
       });
   };
-
   const handleInputChange = (event) => {
-    setFormData({
-      ...formData,
-      [event.target.name]: event.target.value,
-    });
+    const { name, value } = event.target;
+    setFormData((prevState) => ({
+      ...prevState,
+      [name]: value,
+    }));
   };
-
   const handleItemChange = (event, index) => {
+    const { name, value } = event.target;
     const updatedItems = [...formData.items];
     updatedItems[index] = {
       ...updatedItems[index],
-      [event.target.name]: event.target.value,
+      [name]: value,
     };
-    setFormData({
-      ...formData,
+    setFormData((prevState) => ({
+      ...prevState,
       items: updatedItems,
-    });
+    }));
   };
-  console.log(products);
   const handleAddItem = () => {
-    setFormData({
-      ...formData,
-      items: [...formData.items, { product: "", quantity: "" }],
-    });
+    setFormData((prevState) => ({
+      ...prevState,
+      items: [...prevState.items, { product: "", quantity: "" }],
+    }));
   };
-
   const handleRemoveItem = (index) => {
     const updatedItems = [...formData.items];
     updatedItems.splice(index, 1);
-    setFormData({
-      ...formData,
+    setFormData((prevState) => ({
+      ...prevState,
       items: updatedItems,
-    });
+    }));
   };
-
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
 
-    console.log(formData, user);
-    // return
-    AxiosInstance.post("/sales", { ...formData, seller: user._id })
-      .then((response) => response.data)
-      .then((data) => {
-        console.log("Sale added successfully:", data);
-        setFormData({
-          items: [],
-          customer_name: "",
-          customer_TIN: "",
-        });
-        navigate("/sales");
-        toast.success("Sale added successfully.");
-      })
-      .catch((error) => {
-        console.error("Error adding sale:", error);
+    try {
+      const response = await AxiosInstance.post("/sales", {
+        store_id: formData.store_id,
+        items: formData.items,
+        customer_name: formData.customer_name,
+        customer_TIN: formData.customer_TIN,
+        seller: user._id,
       });
-  };
+      const data = response.data;
+      console.log("Sale added successfully:", data);
 
+      setFormData({
+        store_id: "",
+        items: [{ product: "", quantity: "" }],
+        customer_name: "",
+        customer_TIN: "",
+      });
+      navigate("/sales");
+      toast.success("Sale added successfully.");
+    } catch (error) {
+      console.error("Error adding sale:", error);
+    }
+  };
   const calculateUnitPrice = (productId, quantity) => {
     const product = products.find((p) => p._id === productId);
     if (product) {
-      return (product.price * quantity).toFixed(2);
+      return product.price * quantity;
     }
-    return "0.00";
+    return 0;
   };
 
-  const calculateTotalPrice = () => {
-    let totalPrice = 0;
+  const calculateTotal = () => {
+    let subtotal = 0;
     formData.items.forEach((item) => {
-      totalPrice += parseFloat(calculateUnitPrice(item.product, item.quantity));
+      const unitPrice = calculateUnitPrice(item.product, item.quantity);
+      subtotal += unitPrice;
     });
-    return totalPrice.toFixed(2);
+    return subtotal;
   };
-
+  const handleCancel = () => {
+    navigate("/sales");
+  };
   return (
-    <Card className="shadow-sm p-3 mb-4">
-      <CardHeader className="bg-light text-dark">
-        <h4>Create New Sale</h4>
+    <Card>
+      <CardHeader>
+        <h2>Add Sale</h2>
       </CardHeader>
       <CardBody>
         <Form onSubmit={handleSubmit}>
-          <Form.Group controlId="items">
-            <Form.Label>Items</Form.Label>
-            {formData.items.map((item, index) => (
-              <div key={index}>
+          <Row> 
+            <Col md={6}>
+              <Form.Group>
+                <Form.Label>Store</Form.Label>
                 <Form.Control
                   as="select"
-                  name="product"
-                  value={item.product}
-                  onChange={(event) => handleItemChange(event, index)}
-                  required
+                  name="store_id"
+                  value={formData.store_id}
+                  onChange={handleInputChange}
                 >
+                  <option value="">Select a store</option>
+                  {stores.map((store) => (
+                    <option key={store._id} value={store._id}>
+                      {store.name}
+                    </option>
+                  ))}
+                </Form.Control>
+              </Form.Group>
+            </Col> 
+            </Row>
+          <h4>Items</h4>
+          {formData.items.map((item,index) => (
+            <div key={index}>
+              <Row>
+                <Col md={4}>
+                  <Form.Group>
+                    <Form.Label>Product</Form.Label>
+                    <Form.Control
+                      as="select"
+                      name="product"
+                      value={item.product}
+                      onChange={(event) => handleItemChange(event, index)}
+                    >
                   <option value="">Select a product</option>
                   {products
                     .filter((prod) => prod.stock > 0)
@@ -140,38 +170,43 @@ const AddSale = () => {
                       <option key={product._id} value={product._id}>
                         {product.name}
                       </option>
-                    ))}
-                </Form.Control>
-                <Form.Control
-                  type="number"
-                  name="quantity"
-                  placeholder="Quantity of product"
-                  value={item.quantity}
-                  onChange={(event) => handleItemChange(event, index)}
-                  required
-                />
-                <Form.Label>Unit Price</Form.Label>
-                <Form.Control
-                  type="text"
-                  name="unitPrice"
-                  value={calculateUnitPrice(item.product, item.quantity)}
-                  readOnly
-                />
-                <Button
-                  variant="danger"
-                  onClick={() => handleRemoveItem(index)}
-                >
-                  Remove
-                </Button>
-              </div>
-            ))}
-          </Form.Group>
+                      ))}
+                    </Form.Control>
+                  </Form.Group>
+                </Col>
+                <Col md={4}>
+                  <Form.Group>
+                    <Form.Label>Quantity</Form.Label>
+                    <Form.Control
+                      type="number"
+                      name="quantity"
+                      value={item.quantity}
+                      onChange={(event) => handleItemChange(event, index)}
+                    />
+                  </Form.Group>
+                </Col>
+                <Col md={4}>
+                  <Button
+                    variant="danger"
+                    onClick={() => handleRemoveItem(index)}
+                  >
+                    Remove
+                  </Button>
+                </Col>
+              </Row>
+            </div>
+          ))}
 
-          <Button variant="primary" onClick={handleAddItem}>
+          <Button
+            variant="primary"
+            onClick={handleAddItem}
+            style={{ marginBottom: "1rem" }}
+          >
             Add Item
           </Button>
-
-          <Form.Group controlId="customer_name">
+          <Row> 
+            <Col md={6}>
+            <Form.Group controlId="customer_name">
             <Form.Label>Customer Name</Form.Label>
             <Form.Control
               type="text"
@@ -181,7 +216,8 @@ const AddSale = () => {
               required
             />
           </Form.Group>
-
+          </Col>
+            <Col md={6}>
           <Form.Group controlId="customer_TIN">
             <Form.Label>Customer TIN</Form.Label>
             <Form.Control
@@ -192,14 +228,18 @@ const AddSale = () => {
               required
             />
           </Form.Group>
-
-          <Button variant="primary" type="submit">
-            Submit Sale
+            </Col>
+          </Row>
+          <h4>total: ETB={calculateTotal()}</h4>
+          <Button variant="danger" onClick={handleCancel}>
+            Cancel
+          </Button>
+          <Button variant="success" type="submit" style={{ marginLeft: "1rem" }}>
+            Submit
           </Button>
         </Form>
       </CardBody>
     </Card>
   );
 };
-
 export default AddSale;

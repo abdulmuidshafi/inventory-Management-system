@@ -54,7 +54,7 @@ const UpdateUser = () => {
       await AxiosInstance.put(`/user/${userId}`, user);
       // Handle successful user update
       toast.success("Updated");
-      navigate("/user");
+      navigate("/Management");
       // e.g., show success message, redirect, etc.
     } catch (error) {
       console.error(error);
@@ -118,7 +118,7 @@ const UpdateUser = () => {
           <Button variant="primary" type="submit">
             Update
           </Button>
-          <Button variant="secondary" onClick={() => navigate("/user")}>
+          <Button variant="secondary" onClick={() => navigate("/Management")}>
             Cancel
           </Button>
         </Form>

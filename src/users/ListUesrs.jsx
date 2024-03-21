@@ -62,7 +62,7 @@ const ListUsers = ({ onActivate, onDeactivate }) => {
         <h4>Users List</h4>
       </CardHeader>
       <CardBody>
-        <Button onClick={() => navigate("/user/add")}>Add User</Button>
+        <Button onClick={() => navigate("/Management/add")}>Add User</Button>
         <Table striped bordered hover responsive>
           <thead>
             <tr>
@@ -105,7 +105,7 @@ const ListUsers = ({ onActivate, onDeactivate }) => {
                   <ButtonGroup>
                     <Button
                       variant="primary"
-                      onClick={() => navigate(`/user/edit/${user._id}`)}
+                      onClick={() => navigate(`/Management/edit/${user._id}`)}
                     >
                       <FontAwesomeIcon icon={faEdit} /> Edit
                     </Button>
